@@ -55,13 +55,17 @@ info_version_matches_the_application_test() ->
     #{version := Reported} = ?SERVICE:info(),
     ?assertEqual(list_to_binary(Vsn), Reported).
 
-health_is_green_test() ->
-    ?assertEqual(ok, ?SERVICE:health()).
+%% A sentinel that is not hearing the wardens looks exactly like a quiet night,
+%% so health says which it is.
+health_is_down_when_the_ingest_is_not_running_test() ->
+    ?assertEqual({down, not_hearing_wardens}, ?SERVICE:health()).
 
-%% An empty list is the correct answer for a service that does nothing yet. The
-%% assertion is here so that adding a capability breaks a test and makes someone
-%% write down what the service can now actually do.
-announces_no_capability_yet_test() ->
+health_is_degraded_until_the_wardens_are_subscribed_test() ->
+    ?assertEqual({degraded, not_subscribed_to_wardens}, ?SERVICE:hearing(false)),
+    ?assertEqual(ok, ?SERVICE:hearing(true)).
+
+%% The sentinel serves nothing callable: its output is its four published facts.
+announces_no_capability_test() ->
     ?assertEqual([], ?SERVICE:capabilities()).
 
 identity_spec_has_the_shape_mcl_om_expects_test() ->
@@ -81,15 +85,27 @@ authority_matches_what_is_announced_test() ->
     ?assertEqual([], Actions),
     ?assertEqual([], Resources).
 
-%% The supervisor starts and stops cleanly on its own, without mcl_om. It has
-%% no children as generated; this asserts the tree is startable, not that it does
-%% any work.
-supervisor_starts_and_stops_test() ->
-    {ok, Pid} = mcl_sentinel_sup:start_link(),
-    ?assert(is_process_alive(Pid)),
-    ?assertEqual([], supervisor:which_children(Pid)),
-    unlink(Pid),
-    exit(Pid, shutdown).
+%% Three children, in the order they depend on each other: enrichment loads
+%% before the read model rebuilds against it, and the read model is up before
+%% the ingest folds into it. NO PROJECTION: the read model has one folder (see
+%% sentinel_threats), and a projection would fold history a second time on
+%% every boot.
+supervisor_children_are_enrich_model_ingest_test() ->
+    {ok, {_Flags, Children}} = mcl_sentinel_sup:init([]),
+    ?assertEqual([sentinel_enrich, sentinel_threats, hear_warden_reports],
+                 [Id || #{id := Id} <- Children]).
+
+start_refuses_without_a_realm_name_test() ->
+    ok = application:unset_env(?APP, realm_name),
+    ?assertError({mcl_sentinel_realm_name_unset, realm_name}, ?SERVICE:start(#{})).
+
+%% The read model rebuilds from the store named in app env, which must be the
+%% store mcl_om opens.
+the_read_model_reads_the_store_the_service_opens_test() ->
+    {ok, [{application, ?APP, Props}]} =
+        file:consult(code:where_is_file("mcl_sentinel.app")),
+    ?assertEqual(?SERVICE:store_id(),
+                 proplists:get_value(event_store_id, proplists:get_value(env, Props))).
 
 %%==============================================================================
 %% The config the store cannot boot without

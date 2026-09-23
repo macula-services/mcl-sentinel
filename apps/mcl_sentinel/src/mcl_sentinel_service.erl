@@ -37,24 +37,36 @@
 %% without it. evoq starts as a release-boot application before any service's
 %% `start/2' runs, so nothing can inject it later. A sibling put two of three
 %% fleet nodes into a boot-crash loop this exact way.
--export([store_id/0, data_dir/0]).
+-export([store_id/0, data_dir/0, store_indexes/0]).
+-export([hearing/1]).
 
 info() ->
     #{name => <<"mcl-sentinel">>,
       version => <<"0.1.0">>,
       description => <<"Correlates warden sightings into cross-border campaigns and publishes them, enriched, to the threat commons">>}.
 
-start(_Opts) -> mcl_sentinel_sup:start_link().
+%% The realm name the topics carry must be the realm the pool is in, or the
+%% sentinel subscribes where no warden publishes and looks like a quiet night.
+start(_Opts) ->
+    ok = mcl_sentinel_facts:check_realm_name(),
+    mcl_sentinel_sup:start_link().
 
 stop(_State) -> ok.
 
-%% Green once the supervision tree is up. Replace this with a real probe of
-%% whatever this service needs in order to do its job. A dark mesh is usually NOT
-%% a health failure: decide that deliberately rather than by default.
-health() -> ok.
+%% Health is whether the sentinel is HEARING the wardens: a deaf sentinel
+%% publishes nothing and looks exactly like a quiet night. Missing geolocation
+%% data is not a health failure; enrichment is additive.
+health() ->
+    try hear_warden_reports:subscribed() of
+        Subscribed -> hearing(Subscribed)
+    catch _:_ -> {down, not_hearing_wardens}
+    end.
 
-%% WHAT THIS SERVICE ANNOUNCES IT CAN DO. Other services find this one by these
-%% names, so each entry is a promise that something answers.
+%% @doc Health from the subscription state. Exported for tests.
+hearing(true)  -> ok;
+hearing(false) -> {degraded, not_subscribed_to_wardens}.
+
+%% Nothing callable. The sentinel's output is its four published facts.
 capabilities() -> [].
 
 %% THE AUTHORITY THIS SERVICE ASKS THE REALM FOR, and deliberately nothing more.
@@ -89,6 +101,11 @@ store_id() -> mcl_sentinel_store.
 %% eMMC, so `deploy/docker-compose.yml' mounts a volume and sets this. The default
 %% is what a laptop wants; a container without the mount loses its record on every
 %% recreate, which is the same as not keeping one.
+%% Sightings are looked up by address; indexing the payload lets an abuse report
+%% find every sighting of an attacker without a full scan.
+-spec store_indexes() -> [term()].
+store_indexes() -> [event_type, {payload, <<"source_ip">>}].
+
 -spec data_dir() -> string().
 data_dir() -> chosen(os:getenv("MCL_DATA_DIR")).
 

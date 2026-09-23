@@ -15,6 +15,14 @@ on:
   push:
     branches: [main]
     tags:     ['v*']
+    # A push to main rolls every box watching :latest; one that changes no code
+    # must not. ⚠ On the push that CREATES a branch, GitHub filters on the head
+    # commit alone, so a first push whose last commit is docs-only builds
+    # nothing (mcl-warden's did). Dispatch this workflow when that happens.
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'scripts/**'
   workflow_dispatch:
 
 # ONE IMAGE BUILD IN FLIGHT PER REF. Every push to main builds and pushes

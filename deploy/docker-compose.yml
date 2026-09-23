@@ -35,6 +35,12 @@ services:
       # from a small eMMC with a root partition measured in single-digit gigabytes
       # and keep application data on /bulk0.
       - ${MCL_DATA:-/bulk0/mcl-sentinel}:/data
+      # ⚠ NAMED, SO IT OUTLIVES THE CONTAINER. The node identity key is the
+      # sentinel's verified identity: every fact it publishes carries it.
+      - mcl-sentinel-identity:/etc/mcl/secrets
+      # DB-IP Lite databases, read-only. Fill it with scripts/fetch-dbip-lite.sh
+      # (monthly). Empty, the facts simply carry no geolocation.
+      - ${MCL_SENTINEL_GEOIP_DIR:-/bulk0/mcl-sentinel-geoip}:/geoip:ro
     labels:
       # Only meaningful if you run watchtower: it pulls a new :latest and
       # recreates the container. Harmless otherwise.
@@ -43,6 +49,13 @@ services:
       # No default. A service that guesses its realm announces itself where
       # nobody can attribute it, and that looks exactly like a healthy node.
       - MCL_REALM=${MCL_REALM:?set MCL_REALM to the 64-hex realm tag}
+      # The same realm by NAME, which the topics carry. The service refuses to
+      # start unless sha256 of this is MCL_REALM.
+      - MCL_REALM_NAME=${MCL_REALM_NAME:?set MCL_REALM_NAME to the realm name, e.g. io.macula}
+      # The wardens whose reports are taken: their node ids, 64 hex each,
+      # comma-separated, read from each warden's own stored identity. No
+      # default: without it the sentinel refuses to start.
+      - MCL_SENTINEL_WARDENS=${MCL_SENTINEL_WARDENS:?set MCL_SENTINEL_WARDENS to the wardens' 64-hex node ids}
       # The TRUST ANCHOR, and a different thing from MCL_REALM above: that is
       # an identifier, this is the realm's public signing key, hex encoded.
       # Without it nothing org-namespaced resolves, the boot claim never
@@ -64,3 +77,6 @@ services:
       # Where the store lands, matching the volume above. `store_id/0' is
       # appended by mcl_om, so the store itself is at /data/mcl_sentinel_store.
       - MCL_DATA_DIR=/data
+
+volumes:
+  mcl-sentinel-identity:

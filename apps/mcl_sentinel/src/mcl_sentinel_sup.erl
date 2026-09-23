@@ -1,9 +1,8 @@
-%% @doc Supervises this service's own processes.
+%% @doc Supervises the sentinel, in dependency order.
 %%
-%% NO CHILDREN AS GENERATED, and an empty child list is the honest scaffold
-%% rather than a placeholder. There is nothing to supervise yet, and a worker
-%% that ticks and does nothing is how a codebase ends up carrying an empty
-%% heartbeat for a year.
+%% Enrichment loads its databases before the read model rebuilds against them,
+%% and the read model is up before the ingest folds into it. There is no
+%% projection: the read model has exactly one folder (see sentinel_threats).
 -module(mcl_sentinel_sup).
 
 -behaviour(supervisor).
@@ -13,4 +12,15 @@
 start_link() -> supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 init([]) ->
-    {ok, {#{strategy => one_for_one, intensity => 5, period => 10}, []}}.
+    {ok, {#{strategy => rest_for_one, intensity => 5, period => 10},
+          [worker(sentinel_enrich),
+           worker(sentinel_threats),
+           worker(hear_warden_reports)]}}.
+
+worker(Module) ->
+    #{id => Module,
+      start => {Module, start_link, []},
+      restart => permanent,
+      shutdown => 5000,
+      type => worker,
+      modules => [Module]}.

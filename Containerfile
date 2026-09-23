@@ -76,6 +76,12 @@ ENV MCL_NODE_HOST=127.0.0.1
 ENV MCL_COOKIE=mcl_sentinel
 ENV MCL_HEALTH_PORT=8470
 
+# DB-IP Lite databases are MOUNTED here, never baked in: they change monthly.
+# scripts/fetch-dbip-lite.sh fetches them. Absent, there is no geolocation.
+ENV MCL_SENTINEL_GEOIP=/geoip
+
+# The node identity key and the event store: both NAMED volumes in
+# deploy/docker-compose.yml, both must outlive the container.
 VOLUME ["/etc/mcl/secrets"]
 
 EXPOSE 8470

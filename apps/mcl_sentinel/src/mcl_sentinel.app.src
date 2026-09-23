@@ -1,16 +1,24 @@
 {application, mcl_sentinel, [
     {description, "Correlates warden sightings into cross-border campaigns and publishes them, enriched, to the threat commons"},
     {vsn, "0.1.0"},
-    {registered, [mcl_sentinel_sup]},
+    {registered, [mcl_sentinel_sup, sentinel_enrich, sentinel_threats, hear_warden_reports]},
     {mod, {mcl_sentinel_app, []}},
     {applications, [
         kernel,
         stdlib,
         crypto,
         %% Mesh SDK, realm identity, capabilities, health.
-        mcl_om
+        mcl_om,
+        %% Reads the DB-IP Lite databases.
+        locus
     ]},
-    {env, []},
+    {env, [
+        %% The store the read model rebuilds from: the one store_id/0 opens.
+        {event_store_id, mcl_sentinel_store},
+        %% DB-IP Lite, mounted; absent means no enrichment, nothing else.
+        {geoip_city_db, "/geoip/dbip-city-lite.mmdb"},
+        {geoip_asn_db,  "/geoip/dbip-asn-lite.mmdb"}
+    ]},
     {modules, []},
     {licenses, ["Apache-2.0"]},
     {links, [{"GitHub", "https://github.com/macula-services/mcl-sentinel"}]}
