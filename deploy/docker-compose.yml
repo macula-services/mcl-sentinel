@@ -37,7 +37,7 @@ services:
       - ${MCL_DATA:-/bulk0/mcl-sentinel}:/data
       # ⚠ NAMED, SO IT OUTLIVES THE CONTAINER. The node identity key is the
       # sentinel's verified identity: every fact it publishes carries it.
-      - mcl-sentinel-identity:/etc/mcl/secrets
+      - secrets:/etc/mcl/secrets
       # DB-IP Lite databases, read-only. Fill it with scripts/fetch-dbip-lite.sh
       # (monthly). Empty, the facts simply carry no geolocation.
       - ${MCL_SENTINEL_GEOIP_DIR:-/bulk0/mcl-sentinel-geoip}:/geoip:ro
@@ -78,5 +78,9 @@ services:
       # appended by mcl_om, so the store itself is at /data/mcl_sentinel_store.
       - MCL_DATA_DIR=/data
 
+# The identity volume, NAMED HERE rather than left to the project name, so a
+# `docker compose -p` with a different name reuses the same key instead of
+# quietly starting a second identity. Deleting it retires the node id.
 volumes:
-  mcl-sentinel-identity:
+  secrets:
+    name: mcl-sentinel-secrets
