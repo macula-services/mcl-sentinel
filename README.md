@@ -104,6 +104,22 @@ sentinel publishes nothing and looks exactly like a quiet night:
 - `degraded` until both warden topics are subscribed;
 - `ok` otherwise. Missing geolocation data is not a health failure.
 
+## Deploy
+
+What an operator does, in order:
+
+1. Set `MCL_REALM` (the 64-hex tag) **and** `MCL_REALM_NAME` (`io.macula`); the
+   sentinel refuses to start unless sha256 of the name is the tag.
+2. Collect each warden's node id from its log line `[warden] node id: <64 hex>`
+   and set them, comma-separated, in `MCL_SENTINEL_WARDENS`. The sentinel
+   refuses to start without a valid list and ignores any warden not on it.
+3. Fetch the geolocation data: `scripts/fetch-dbip-lite.sh <dir>` into the
+   directory mounted at `/geoip` (compose default `/bulk0/mcl-sentinel-geoip`).
+   Repeat monthly and restart the sentinel to load it. Optional: without it
+   the facts carry no geolocation.
+4. Mount the event store on a bulk drive and a **named** volume at
+   `/etc/mcl/secrets` (both are in `deploy/docker-compose.yml`).
+
 ## Build and test
 
     rebar3 eunit
