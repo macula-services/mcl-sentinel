@@ -45,6 +45,10 @@ FROM ghcr.io/macula-io/macula-pq-runtime:20260923-1444@sha256:15a5501b7277804c5a
 # private by accident failed its first pull with a bare "unauthorized", which
 # names nothing and sends you looking in the wrong place.
 LABEL org.opencontainers.image.source="https://github.com/macula-services/mcl-sentinel"
+# THIS image's commit (build-push passes github.sha). Without it the image
+# inherited its base image's label, which names macula-ci-images' commit.
+ARG REVISION=unknown
+LABEL org.opencontainers.image.revision="${REVISION}"
 # The runtime image carries what the release loads: OpenSSL 3.5, libz,
 # libzstd, libstdc++, libtinfo, and curl for the healthcheck below.
 WORKDIR /app

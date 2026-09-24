@@ -244,3 +244,14 @@ the_claim_labels_are_not_shadowed_by_app_env_test() ->
     {ok, Text} = file:read_file(alongside("config/sys.config.src")),
     ?assertEqual(nomatch, re:run(Text, <<"^\\s*\\{(service_name|box),">>, [multiline])).
 
+%% The image says which commit IT was built from. Without its own label it
+%% inherited the base image's (macula-ci-images' own commit), which names the
+%% wrong repository; build-push passes the sha, the runtime stage labels it.
+the_image_carries_its_revision_test() ->
+    ?assertEqual(<<"REVISION">>, pinned("Containerfile", "^ARG (REVISION)=unknown$")),
+    ?assertEqual(<<"${REVISION}">>,
+                 pinned("Containerfile",
+                        "^LABEL org\\.opencontainers\\.image\\.revision=\"([^\"]+)\"$")),
+    ?assertEqual(<<"${{ github.sha }}">>,
+                 pinned(".github/workflows/build-push.yml", "^\\s+REVISION=(.+)$")).
+
