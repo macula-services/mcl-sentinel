@@ -72,6 +72,11 @@ Rules a consumer can rely on:
 **Geolocation: IP Geolocation by [DB-IP](https://db-ip.com), CC BY 4.0.** Anything
 that shows the geolocation fields credits DB-IP.
 
+Like every mcl service, it also answers `mcl-sentinel/info`, which mcl_om adds: its
+name, version and description, its org and claim labels, node id, the macula
+and mcl_om versions, uptime, the health word and the procedures it advertises.
+Open to any mesh caller, public facts only.
+
 ## Configuration
 
 | Variable | Default | Meaning |
