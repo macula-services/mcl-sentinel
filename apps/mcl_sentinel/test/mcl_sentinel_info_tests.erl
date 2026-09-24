@@ -5,8 +5,8 @@
 %% added the way mcl_om:boot/2 adds it, and the org in config/sys.config.src,
 %% then sent through macula's own frame codec, the path a reply takes. What
 %% arrives must be text, never bytes, and name this service, its procedures and
-%% the mcl_om 0.28 / macula 12.2 pair it was built with (12.2 under an older
-%% mcl_om lets a failed publish announcement kill the publishing process).
+%% an mcl_om of at least 0.28 with a macula of at least 12.2 (12.2 under an
+%% older mcl_om lets a failed publish announcement kill the publishing process).
 -module(mcl_sentinel_info_tests).
 
 -include_lib("eunit/include/eunit.hrl").
@@ -26,9 +26,16 @@ info_round_trip_test_() ->
           ?_assertEqual([{text, C} || C <- [<<(?ORG)/binary, "/info">> | Own]],
                         maps:get(capabilities, Reply)),
           ?_assertEqual([], [V || V <- lists:flatten(maps:values(Reply)), is_binary(V)]),
-          ?_assertMatch({text, <<"0.28.", _/binary>>}, maps:get(mcl_om_version, Reply)),
-          ?_assertMatch({text, <<"12.2.", _/binary>>}, maps:get(macula_version, Reply))]
+          ?_assert(at_least(maps:get(mcl_om_version, Reply), [0, 28])),
+          ?_assert(at_least(maps:get(macula_version, Reply), [12, 2]))]
      end}.
+
+%% A floor, not an exact release: the constraints (~> 0.28, ~> 12.2) take any
+%% later minor, and the rule is only that macula 12.2 or later never runs with
+%% an mcl_om older than 0.28. Same major, minor at least the floor's.
+at_least({text, Vsn}, [Major, Minor]) ->
+    [Ma, Mi | _] = [binary_to_integer(P) || P <- binary:split(Vsn, <<".">>, [global])],
+    Ma =:= Major andalso Mi >= Minor.
 
 %% The service must leave `info' to mcl_om: declaring its own refuses boot.
 the_service_does_not_declare_info_test_() ->
