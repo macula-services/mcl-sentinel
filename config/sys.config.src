@@ -33,7 +33,6 @@
         %% One org per service, named after the repo: the org that owns the
         %% sentinel's fact topics. Fixed, not deploy config.
         {org,               <<"mcl-sentinel">>},
-        {service_name,      <<"mcl-sentinel">>},
         %% THE REALM IS AN APPLICATION ENV, NOT A SHELL VARIABLE, and this file
         %% is the only place the two meet. mcl_om_identity:realm() reads
         %% application:get_env(mcl_om, realm); exporting MCL_REALM in the

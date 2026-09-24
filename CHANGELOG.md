@@ -5,6 +5,14 @@
 Ported from `hecate-services/hecate-sentinel` (branch
 `fix/verified-warden-publisher`, a159d4b) onto `mcl_om` and macula 12.
 
+- **On `mcl_om` 0.27; the boot claim says which service, which box.** The claim
+  carries `MCL_SERVICE_NAME=mcl-sentinel` and the host's `MCL_BOX`, shown on the
+  realm's Providers desk. 0.27 no longer brings barrel_docdb or rocksdb.
+- **The team image pair.** Builds in `macula-ci-otp` and runs on
+  `macula-pq-runtime` (Debian trixie), both pinned by dated tag and digest,
+  instead of floating `erlang:28-alpine` and `alpine:3.22`. CI runs in the same
+  build image and adds dialyzer; `.tool-versions` moves to 28.4.3.
+
 - **New fact contract.** Canonical macula app topics
   `<realm>/mcl-sentinel/sentinel/watch/{attacker_sighted,attacker_ensnared,campaign_detected,sentinel_checked_in}_v1`
   replace `sentinel/sighting`, `sentinel/ensnare`, `sentinel/campaign` and

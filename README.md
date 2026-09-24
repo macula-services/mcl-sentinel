@@ -85,6 +85,8 @@ that shows the geolocation fields credits DB-IP.
 | `MCL_SENTINEL_GEOIP_DIR` | `/bulk0/mcl-sentinel-geoip` | (compose) host directory holding the DB-IP files, mounted read-only at `/geoip` |
 | `MCL_DATA` | `/bulk0/mcl-sentinel` | (compose) host directory for the event store |
 | `MCL_HEALTH_PORT` | `8470` | health endpoint |
+| `MCL_SERVICE_NAME` | `mcl-sentinel` | label on the boot claim the realm's operator sees on the Providers desk |
+| `MCL_BOX` | unset | label naming the host, also on the boot claim; set it where you deploy |
 
 Three mounts, all in `deploy/docker-compose.yml`:
 
@@ -125,7 +127,11 @@ What an operator does, in order:
     rebar3 eunit
     rebar3 lint
 
-OTP 28, pinned in `.tool-versions`, the `Containerfile` and CI.
+OTP 28.4.3, pinned in `.tool-versions`, the `Containerfile` and CI, and a test
+fails when they disagree with the VM running it. The image builds in the team's
+`ghcr.io/macula-io/macula-ci-otp` and runs on `ghcr.io/macula-io/macula-pq-runtime`
+(Debian trixie, OpenSSL with ML-DSA), both pinned by dated tag and digest; CI
+runs in the same build image.
 
 ## Deployment
 
