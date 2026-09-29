@@ -9,11 +9,15 @@
         crypto,
         %% Mesh SDK, realm identity, capabilities, health.
         mcl_om,
+        %% This service's own event store (mcl_sentinel_store opens it).
+        reckon_db,
+        evoq,
+        reckon_evoq,
         %% Reads the DB-IP Lite databases.
         locus
     ]},
     {env, [
-        %% The store the read model rebuilds from: the one store_id/0 opens.
+        %% The store the read model rebuilds from: event_store/0's id.
         {event_store_id, mcl_sentinel_store},
         %% DB-IP Lite, mounted; absent means no enrichment, nothing else.
         {geoip_city_db, "/geoip/dbip-city-lite.mmdb"},

@@ -17,27 +17,20 @@
 
 -export([info/0, start/1, stop/1, health/0, capabilities/0, identity_spec/0]).
 %% ==========================================================================
-%% AND TWO OPTIONAL ONES, WHICH TURN THE STORE ON
+%% AND THE STORE THIS SERVICE OWNS
 %% ==========================================================================
 %%
-%% Generated because this service was scaffolded with `store=1'. Exporting
-%% `store_id/0' and `data_dir/0' TOGETHER makes `mcl_om:boot/1' open a
-%% reckon-db store before this module's `start/1' fires.
+%% NOT an mcl_om callback: mcl_om opens no store since 0.35 (mcl-om#10).
+%% mcl_sentinel_app reads event_store/0 and opens the store (mcl_sentinel_store)
+%% before mcl_om:boot/1, with reckon_db, evoq and reckon_evoq declared here.
+%% One map, NOT store_id/0 and data_dir/0: mcl_om 0.35 warns at every boot about
+%% a service module exporting that pair.
 %%
-%% ⚠ THE reckon-db APPLICATIONS RUN EITHER WAY. `reckon_db', `reckon_evoq',
-%% `reckon_gater', `evoq', `khepri' and `ra' start with `mcl_om' whether these
-%% callbacks exist or not. What the two add is a STORE: a data directory, an open
-%% handle, and something written. A sibling service claimed for months that they
-%% suppressed the whole stack while six of its thirty-one running applications
-%% quietly disproved it.
-%%
-%% ⚠⚠ AND `config/sys.config.src' MUST CARRY THE `evoq' BLOCK, which is why it was
-%% generated with one. mcl_om starts a per-store evoq subscription that reads
-%% the global log, and that crashes on `{not_configured, event_store_adapter}'
-%% without it. evoq starts as a release-boot application before any service's
-%% `start/2' runs, so nothing can inject it later. A sibling put two of three
+%% ⚠ `config/sys.config.src' MUST CARRY THE `evoq' BLOCK: the per-store evoq
+%% subscription reads the global log, and crashes on
+%% `{not_configured, event_store_adapter}' without it. A sibling put two of three
 %% fleet nodes into a boot-crash loop this exact way.
--export([store_id/0, data_dir/0, store_indexes/0]).
+-export([event_store/0]).
 -export([hearing/1]).
 
 info() ->
@@ -86,28 +79,27 @@ identity_spec() ->
 %% The store
 %% ==========================================================================
 
-%% @doc The reckon-db store this service owns.
+%% @doc The reckon-db store this service owns, as mcl_sentinel_app opens it.
 %%
-%% ⚠ IT IS NAMED IN TWO PLACES, here and in the `evoq' block of
-%% `config/sys.config.src', and nothing makes them agree by itself. Disagreeing
-%% opens one store and addresses another. A generated test compares the two.
--spec store_id() -> atom().
-store_id() -> mcl_sentinel_store.
-
-%% @doc Where it lives on disk.
+%% `id': ⚠ NAMED IN TWO PLACES, here and in the `evoq' block of
+%% `config/sys.config.src' (and the read model's `event_store_id' app env); a
+%% generated test compares them. Disagreeing opens one store and addresses another.
 %%
-%% ⚠ DEFAULTS TO A PATH INSIDE THE CONTAINER AND MUST NOT STAY THERE ON A NODE.
-%% The fleet keeps application data on its `/bulk' drives and boots from a small
-%% eMMC, so `deploy/docker-compose.yml' mounts a volume and sets this. The default
-%% is what a laptop wants; a container without the mount loses its record on every
-%% recreate, which is the same as not keeping one.
-%% Sightings are looked up by address; indexing the payload lets an abuse report
-%% find every sighting of an attacker without a full scan.
--spec store_indexes() -> [term()].
-store_indexes() -> [event_type, {payload, <<"source_ip">>}].
-
--spec data_dir() -> string().
-data_dir() -> chosen(os:getenv("MCL_DATA_DIR")).
+%% `dir': where it lives (the store at <dir>/<id>/). ⚠ DEFAULTS TO A PATH INSIDE
+%% THE CONTAINER AND MUST NOT STAY THERE ON A NODE: `deploy/docker-compose.yml'
+%% mounts a volume and sets MCL_DATA_DIR.
+%%
+%% `indexes': sightings are looked up by address; indexing the payload lets an
+%% abuse report find every sighting of an attacker without a full scan. Declared
+%% when the store opens.
+-spec event_store() -> #{id := atom(), dir := string(), indexes := [term()],
+                         mode := single | cluster, integrity := disabled | map()}.
+event_store() ->
+    #{id => mcl_sentinel_store,
+      dir => chosen(os:getenv("MCL_DATA_DIR")),
+      indexes => [event_type, {payload, <<"source_ip">>}],
+      mode => single,
+      integrity => disabled}.
 
 chosen(false) -> "/tmp/mcl_sentinel";
 chosen("") -> "/tmp/mcl_sentinel";

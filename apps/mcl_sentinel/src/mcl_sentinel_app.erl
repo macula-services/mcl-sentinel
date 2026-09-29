@@ -1,19 +1,18 @@
 %% @doc OTP application entry.
 %%
-%% mcl_om:boot/1 wires the mesh, the realm identity and health, then starts
-%% this service. STORELESS as generated: no store_id/0 or data_dir/0 callback on
-%% the service module, so no reckon-db is started.
-%%
-%% To make this a CMD/PRJ service that owns an event store, export store_id/0 and
-%% data_dir/0 from mcl_sentinel_service. mcl_om:boot/1 picks them up and starts
-%% the store plus its evoq subscription BEFORE start/1 fires, so you never call
-%% reckon_db_sup:start_store/1 yourself.
+%% Opens this service's own reckon-db store and its evoq subscription
+%% (mcl_sentinel_store, from mcl_sentinel_service:event_store/0), THEN lets
+%% mcl_om:boot/1 wire the mesh, the realm identity and health and start the
+%% service, so the campaign desks and the read model find the store up. mcl_om
+%% opens no store (0.35, mcl-om#10).
 -module(mcl_sentinel_app).
 
 -behaviour(application).
 
 -export([start/2, stop/1]).
 
-start(_Type, _Args) -> mcl_om:boot(mcl_sentinel_service).
+start(_Type, _Args) ->
+    ok = mcl_sentinel_store:open(mcl_sentinel_service:event_store()),
+    mcl_om:boot(mcl_sentinel_service).
 
 stop(_State) -> ok.

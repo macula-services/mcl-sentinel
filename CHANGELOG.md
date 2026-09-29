@@ -2,6 +2,14 @@
 
 ## 0.1.0 (unreleased)
 
+- **The store is this service's own** (mcl-om#10). From mcl_om 0.35 on, mcl_om opens no store and
+  brings no reckon-db or evoq application, so mcl-sentinel declares `reckon_db`, `evoq` and
+  `reckon_evoq` itself (it declared only evoq; the floors mcl_om carried come with them) and
+  `mcl_sentinel_app` opens the store with its own copy of the wiring (`mcl_sentinel_store`) before
+  `mcl_om:boot/1`, with the same `source_ip` payload index. The service describes the store as one
+  `event_store/0` map instead of `store_id/0`, `data_dir/0` and `store_indexes/0`. mcl_om is bounded
+  `>= 0.34.0 and < 0.36.0`.
+
 Ported from `hecate-services/hecate-sentinel` (branch
 `fix/verified-warden-publisher`, a159d4b) onto `mcl_om` and macula 12.
 

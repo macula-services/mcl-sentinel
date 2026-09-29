@@ -26,16 +26,17 @@ info_round_trip_test_() ->
           ?_assertEqual([{text, C} || C <- [<<(?ORG)/binary, "/info">> | Own]],
                         maps:get(capabilities, Reply)),
           ?_assertEqual([], [V || V <- lists:flatten(maps:values(Reply)), is_binary(V)]),
-          ?_assert(at_least(maps:get(mcl_om_version, Reply), [0, 28])),
-          ?_assert(at_least(maps:get(macula_version, Reply), [12, 2]))]
+          ?_assert(at_least(maps:get(mcl_om_version, Reply), [0, 34])),
+          ?_assert(at_least(maps:get(macula_version, Reply), [13, 0]))]
      end}.
 
-%% A floor, not an exact release: the constraints (~> 0.28, ~> 12.2) take any
-%% later minor, and the rule is only that macula 12.2 or later never runs with
-%% an mcl_om older than 0.28. Same major, minor at least the floor's.
+%% A floor, not an exact release: the service runs on mcl_om 0.34 or later
+%% (bounded below 0.36 in rebar.config), which brings macula 13. Compared as
+%% versions, so a later major passes a floor: the old same-major rule failed the
+%% moment mcl_om 0.34 brought macula 13.
 at_least({text, Vsn}, [Major, Minor]) ->
     [Ma, Mi | _] = [binary_to_integer(P) || P <- binary:split(Vsn, <<".">>, [global])],
-    Ma =:= Major andalso Mi >= Minor.
+    {Ma, Mi} >= {Major, Minor}.
 
 %% The service must leave `info' to mcl_om: declaring its own refuses boot.
 the_service_does_not_declare_info_test_() ->
