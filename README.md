@@ -7,9 +7,9 @@ by two is named as a campaign, before it reaches the next door.
 
 ## Status
 
-Built and tested locally, **not yet deployed**. Runs on macula 12 through
-`mcl_om`. It replaces `hecate-services/hecate-sentinel` and inherits nothing
-from it: no store, no identity, no topic.
+Released as 0.1.0 on macula 13.3 through `mcl_om` 0.36. It replaces
+`hecate-services/hecate-sentinel`, which ran on macula 10 and inherits nothing: no
+identity, no volume, no topic.
 
 ## What it does
 
@@ -140,8 +140,11 @@ runs in the same build image.
 
 ## Deployment
 
-CI pushes `ghcr.io/macula-services/mcl-sentinel:latest` on every push to `main`
-that touches code, and the semver tag on a `v*` tag. Under watchtower a push to `main` is a deploy.
+CI publishes `ghcr.io/macula-services/mcl-sentinel:<version>` on a `v*` tag, signs and
+attests that digest, and only then moves `:latest` to it; a push to `main`
+publishes `:main` and `:<sha>`, which nothing follows. The dev fleet runs
+`:latest` from macula-fleet: each box's reconciler pulls it, verifies the digest
+it resolved to and runs that digest, so a green release is the deploy.
 
 ## License
 

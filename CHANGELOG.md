@@ -1,6 +1,9 @@
 # Changelog
 
-## 0.1.0 (unreleased)
+## 0.1.0 (2026-09-30)
+
+- **On `mcl_om` 0.36 with macula 13.3**, the pair the fleet's stations speak (`~> 0.36`,
+  released versions only). The info test's floors follow.
 
 - **The store is this service's own** (mcl-om#10). From mcl_om 0.35 on, mcl_om opens no store and
   brings no reckon-db or evoq application, so mcl-sentinel declares `reckon_db`, `evoq` and
