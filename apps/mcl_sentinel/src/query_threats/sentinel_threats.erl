@@ -10,8 +10,8 @@
 %%% init/1, and after that folded only by the live ingest, after a sighting is
 %%% recorded. There is deliberately no projection: evoq's store subscription
 %%% replays the whole log to every handler on each boot with nothing marking it
-%%% as a replay, so a projection would fold history a second time (hecate-sentinel
-%%% counted every historical attempt again on every restart) and would announce
+%%% as a replay, so a projection would fold history a second time (the macula 10
+%%% sentinel counted every historical attempt again on every restart) and would announce
 %%% every old campaign again as if it were new.
 -module(sentinel_threats).
 -behaviour(gen_server).

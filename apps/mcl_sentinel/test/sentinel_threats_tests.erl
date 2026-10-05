@@ -65,7 +65,7 @@ ensnarements_add_up(_) ->
     {ok, Row} = sentinel_threats:get(<<"192.0.2.7">>),
     ?_assertEqual(1500, maps:get(held_ms, Row)).
 
-%% THE REGRESSION. hecate-sentinel folded the log at boot AND again through its
+%% THE REGRESSION. The macula 10 sentinel folded the log at boot AND again through its
 %% projection's catch-up, so every restart added every historical attempt a
 %% second time. Here the log is folded once, by rebuild.
 rebuilding_folds_each_event_once(Pid) ->
