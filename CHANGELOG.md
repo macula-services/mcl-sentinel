@@ -2,9 +2,14 @@
 
 ## 0.2.0 (2026-10-07)
 
-- **On `mcl_om` 0.38 with macula 14.2**, the SDK base every deployed service runs on
-  (`~> 0.38`, released versions only). The info test's floors follow. No behaviour change.
+- **On `mcl_om` 0.39 with macula 14.2**, the SDK base every deployed service runs on
+  (`~> 0.39`, released versions only). The info test's floors follow.
   (#1)
+
+- **`/health` is served on a Unix socket only** (`/run/mcl/health.sock`, mcl_om 0.39 `health_socket`). No TCP
+  health listener runs and no health port is bound on the host: `MCL_HEALTH_PORT`, the `health_port` setting and
+  its `EXPOSE` are gone. The image creates `/run/mcl` and probes the socket; `scripts/health.sh` asks it through
+  the container engine. A deploy that probed the port must probe the socket.
 
 ## 0.1.0 (2026-09-30)
 

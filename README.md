@@ -89,7 +89,7 @@ Open to any mesh caller, public facts only.
 | `MCL_SENTINEL_WARDENS` | required | the wardens whose reports are taken: their 64-hex node ids, comma or space separated. The sentinel **refuses to start** without a valid list |
 | `MCL_SENTINEL_GEOIP_DIR` | `/bulk0/mcl-sentinel-geoip` | (compose) host directory holding the DB-IP files, mounted read-only at `/geoip` |
 | `MCL_DATA` | `/bulk0/mcl-sentinel` | (compose) host directory for the event store |
-| `MCL_HEALTH_PORT` | `8470` | health endpoint |
+| (none) | `/run/mcl/health.sock` | `/health` is served on this Unix socket inside the container (mcl_om `health_socket`); no health port is bound. `scripts/health.sh` asks it. |
 | `MCL_SERVICE_NAME` | `mcl-sentinel` | label on the boot claim the realm's operator sees on the Providers desk |
 | `MCL_BOX` | unset | label naming the host, also on the boot claim; set it where you deploy |
 

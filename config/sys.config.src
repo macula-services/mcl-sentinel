@@ -28,7 +28,9 @@
         %% ON A PERSISTENT VOLUME: this key is the sentinel's identity on the
         %% mesh, the verified publisher of every fact it sends.
         {identity_key_path, "/etc/mcl/secrets/identity.key"},
-        {health_port,       ${MCL_HEALTH_PORT}},
+        %% /health on a Unix socket only (mcl_om 0.39): no TCP health
+        %% listener, no health port on the host.
+        {health_socket,     "/run/mcl/health.sock"},
         {capability_topic,  <<"_mesh.cap.">>},
         %% One org per service, named after the repo: the org that owns the
         %% sentinel's fact topics. Fixed, not deploy config.
