@@ -7,7 +7,7 @@ by two is named as a campaign, before it reaches the next door.
 
 ## Status
 
-Released as 0.1.0 on macula 13.3 through `mcl_om` 0.36. It replaces
+Released as 0.2.0 on macula 14.2 through `mcl_om` 0.38. It replaces
 the macula 10 sentinel service and inherits nothing from it: no identity, no
 volume, no topic.
 

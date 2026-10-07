@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 (2026-10-07)
+
+- **On `mcl_om` 0.38 with macula 14.2**, the SDK base every deployed service runs on
+  (`~> 0.38`, released versions only). The info test's floors follow. No behaviour change.
+  (#1)
+
 ## 0.1.0 (2026-09-30)
 
 - **On `mcl_om` 0.36 with macula 13.3**, the pair the fleet's stations speak (`~> 0.36`,
