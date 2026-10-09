@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 (2026-10-10)
+
+- **Rebuilt on macula ~> 14 (newest release):** request admission frees the slot when the reply is sent, and caller attribution covers every payload shape (macula#89, macula#60).
+
 ## 0.2.0 (2026-10-07)
 
 - **On `mcl_om` 0.39 with macula 14.2**, the SDK base every deployed service runs on
