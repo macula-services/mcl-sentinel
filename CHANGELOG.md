@@ -1,5 +1,7 @@
 # Changelog
 
+- **Rebuilt on macula 14.8.2** (refused dials back off further each time, macula#95).
+
 ## 0.2.1 (2026-10-10)
 
 - **Rebuilt on macula ~> 14 (newest release):** request admission frees the slot when the reply is sent, and caller attribution covers every payload shape (macula#89, macula#60).
