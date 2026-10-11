@@ -1,6 +1,27 @@
 # mcl-sentinel
 
-**Correlates warden sightings into cross-border campaigns and publishes them, enriched, to the threat commons.**
+<!-- Service README template: swap the service name in the badge URLs and the
+     package link; everything else is shared. -->
+
+[![CI](https://img.shields.io/github/actions/workflow/status/macula-services/mcl-sentinel/lint.yml?branch=main&label=CI)](https://github.com/macula-services/mcl-sentinel/actions/workflows/lint.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![ghcr.io](https://img.shields.io/badge/ghcr.io-macula--services%2Fmcl-sentinel-blue.svg)](https://github.com/macula-services/mcl-sentinel/pkgs/container/mcl-sentinel)
+[![BEAM](https://img.shields.io/badge/beam-28%2B-A90533?logo=erlang&logoColor=white)](https://www.erlang.org)
+[![GitHub Sponsors](https://img.shields.io/badge/GitHub%20Sponsors-support-ea4aaa.svg?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/rgfaber)
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/macula-full-dark.svg">
+    <img src="assets/macula-full-light.svg" alt="Macula" width="320">
+  </picture>
+</p>
+
+<p align="center">
+  <strong>Correlates warden sightings into cross-border campaigns and publishes them, enriched, to the threat commons.</strong>
+</p>
+
+---
+
 
 This exists so an attacker seen by one box is known to every box, and one seen
 by two is named as a campaign, before it reaches the next door.
