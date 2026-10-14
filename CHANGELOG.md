@@ -2,6 +2,10 @@
 
 - **Rebuilt on macula 14.8.2** (refused dials back off further each time, macula#95).
 
+## 0.2.3 - 2026-10-14
+
+- **Rebuilt on mcl_om 0.40** (mcl-om#25): a lapsed provider delegation claims again and comes back without a restart, and `/health` shows each authorization's `not_after_ms`, degraded as `expiring` with a third or less of its life left.
+
 ## 0.2.1 (2026-10-10)
 
 - **Rebuilt on macula ~> 14 (newest release):** request admission frees the slot when the reply is sent, and caller attribution covers every payload shape (macula#89, macula#60).
