@@ -14,9 +14,12 @@
 - **The redelivery is pinned in this suite** (`redelivered_sighting_tests`),
   against a real reckon-db store rather than a mocked one: a real append for the
   first delivery, a real replay for the second, and evoq's own reply for the
-  empty event list. It fails on the evoq this build resolved before the bump
-  (1.24.2, `hd([])` at `evoq_aggregate:reply_after_append/5`) and passes on
-  1.26.3.
+  empty event list.
+
+  Every evoq below 1.26.3 has the defect, which includes the 1.26.2 the
+  deployed image was built on. The test was seen RED on the evoq this checkout
+  had resolved before the bump, 1.24.2, which a stale local lock had pinned
+  there while the constraint already floored at 1.26.1, and green on 1.26.3.
 
 ## 0.2.3 - 2026-10-14
 
