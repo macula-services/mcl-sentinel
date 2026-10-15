@@ -1,10 +1,30 @@
 # Changelog
 
-- **Rebuilt on macula 14.8.2** (refused dials back off further each time, macula#95).
+## 0.2.4 - 2026-10-15
+
+- **Rebuilt on evoq 1.26.3**, which fixes a crash this service could hit live
+  (evoq#16). `threat_aggregate` answers a redelivered sighting with the
+  sanctioned no-op `{ok, []}`; the evoq reply path reached for `hd/1` on that
+  empty event list, so the aggregate died with a `badarg` and the caller got an
+  exit where `hear_warden_reports` expects `duplicate`. The sighting was then
+  neither recorded nor announced, and its stream was gone. The constraint
+  (`>= 1.26.1 and < 2.0.0`) already admitted the fix; only the built dependency
+  had to move.
+
+- **The redelivery is pinned in this suite** (`redelivered_sighting_tests`),
+  against a real reckon-db store rather than a mocked one: a real append for the
+  first delivery, a real replay for the second, and evoq's own reply for the
+  empty event list. It fails on the evoq this build resolved before the bump
+  (1.24.2, `hd([])` at `evoq_aggregate:reply_after_append/5`) and passes on
+  1.26.3.
 
 ## 0.2.3 - 2026-10-14
 
 - **Rebuilt on mcl_om 0.40** (mcl-om#25): a lapsed provider delegation claims again and comes back without a restart, and `/health` shows each authorization's `not_after_ms`, degraded as `expiring` with a third or less of its life left.
+
+## 0.2.2 (2026-10-11)
+
+- **Rebuilt on macula 14.8.2** (refused dials back off further each time, macula#95).
 
 ## 0.2.1 (2026-10-10)
 
