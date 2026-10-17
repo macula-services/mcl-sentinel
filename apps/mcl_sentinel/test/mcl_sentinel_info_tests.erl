@@ -5,8 +5,8 @@
 %% added the way mcl_om:boot/2 adds it, and the org in config/sys.config.src,
 %% then sent through macula's own frame codec, the path a reply takes. What
 %% arrives must be text, never bytes, and name this service, its procedures and
-%% an mcl_om of at least 0.39 with a macula of at least 14.2, the SDK base every
-%% deployed service runs on.
+%% an mcl_om of at least 1.0 with a macula of at least 15.6: wire 1.0, the line
+%% the flag day moves the fleet to (macula-io/macula-fleet#27).
 -module(mcl_sentinel_info_tests).
 
 -include_lib("eunit/include/eunit.hrl").
@@ -26,12 +26,12 @@ info_round_trip_test_() ->
           ?_assertEqual([{text, C} || C <- [<<(?ORG)/binary, "/info">> | Own]],
                         maps:get(capabilities, Reply)),
           ?_assertEqual([], [V || V <- lists:flatten(maps:values(Reply)), is_binary(V)]),
-          ?_assert(at_least(maps:get(mcl_om_version, Reply), [0, 39])),
-          ?_assert(at_least(maps:get(macula_version, Reply), [14, 2]))]
+          ?_assert(at_least(maps:get(mcl_om_version, Reply), [1, 0])),
+          ?_assert(at_least(maps:get(macula_version, Reply), [15, 6]))]
      end}.
 
-%% A floor, not an exact release: the service runs on mcl_om 0.39 or later
-%% (~> 0.39 in rebar.config), which brings macula 14. Compared as
+%% A floor, not an exact release: the service runs on mcl_om 1.0 or later
+%% (~> 1.0 in rebar.config), which brings macula 15.6. Compared as
 %% versions, so a later major passes a floor: the old same-major rule failed the
 %% moment mcl_om 0.34 brought macula 13.
 at_least({text, Vsn}, [Major, Minor]) ->

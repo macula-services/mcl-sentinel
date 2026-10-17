@@ -33,6 +33,9 @@ Released as 0.2.0 on macula 14.2 through `mcl_om` 0.38. It replaces
 the macula 10 sentinel service and inherits nothing from it: no identity, no
 volume, no topic.
 
+0.3.0 moves it to wire 1.0: macula 15.6 through `mcl_om` 1.0. It reaches a box
+on the flag day (macula-io/macula-fleet#27), when the whole fleet moves together.
+
 ## What it does
 
 1. **Hears** `mcl-warden`'s `attacker_sighted` and `attacker_ensnared`, and
