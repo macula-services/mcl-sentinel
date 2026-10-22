@@ -142,7 +142,7 @@ def context():
            "the four facts on the realm"])
     d.box("b-ext", 40, 320, 280, 110, "DB-IP Lite", "[External system]",
           ["dbip-city-lite.mmdb and", "dbip-asn-lite.mmdb, at /geoip"])
-    d.box("b-sys", 380, 300, 360, 150, "mcl-sentinel", "[mcl_om mesh service, own box]",
+    d.box("b-sys", 380, 300, 360, 150, "mcl-sentinel", "[mcl_om mesh service]",
           ["Hears configured wardens, records", "each sighting, names a campaign",
            "when a second warden sees the", "address, and publishes four facts"])
     d.box("b-ext", 800, 300, 320, 110, "Event store", "[External system, host directory]",
@@ -150,9 +150,9 @@ def context():
     d.box("b-ext", 60, 540, 300, 140, "Warden boxes", "[External system, mcl-warden]",
           ["The wardens this sentinel is", "configured with publish",
            "attacker_sighted and attacker_ensnared"])
-    d.box("b-mac", 400, 540, 340, 120, "macula-realm", "[Macula infrastructure]",
-          ["Endorses the node's identity key", "and grants the one scope it asks",
-           "for, mcl-sentinel"])
+    d.box("b-mac", 400, 540, 340, 136, "macula-realm", "[Macula infrastructure]",
+          ["Endorses the node's identity key", "and grants a provider authorization",
+           "for each org procedure it advertises,", "info and get_limits included"])
     d.box("b-mac", 800, 540, 320, 120, "Macula stations, mesh DHT", "[Macula infrastructure]",
           ["The pinned stations are its mesh", "entry points over QUIC; the facts",
            "go out through them"])
@@ -185,9 +185,9 @@ def components():
     d.box("b-cmp", 40, 66, 480, 120, "mcl_sentinel_app", "[application behaviour]",
           ["start/2 opens the store, then boots:", "mcl_sentinel_store:open(event_store()),",
            "then mcl_om:boot(mcl_sentinel_service)"], code=True)
-    d.box("b-cmp", 660, 66, 500, 120, "mcl_sentinel_service", "[mcl_om_service behaviour]",
+    d.box("b-cmp", 660, 66, 500, 136, "mcl_sentinel_service", "[mcl_om_service behaviour]",
           ["The mcl_om_service callbacks: start, stop, health,", "capabilities, identity_spec, plus event_store/0 and",
-           "hearing/1. capabilities/0 is empty; mcl_om adds info and get_limits"], code=True)
+           "hearing/1. capabilities/0 is empty; mcl_om adds", "info and get_limits"], code=True)
     d.box("b-cmp", 40, 210, 480, 104, "mcl_sentinel_store", "[reckon-db store + evoq subscription]",
           ["Starts the store at MCL_DATA_DIR, waits", "until reckon_db lists it, subscribes evoq"],
           code=True)
@@ -227,7 +227,7 @@ def components():
           code=True)
     d.box("b-ext", 40, 1056, 1120, 104, "the host environment", "[environment, read at boot; no secret here]",
           ["MCL_SENTINEL_WARDENS (the only callers whose reports are taken), MCL_SENTINEL_GEOIP (/geoip, set in the Containerfile), MCL_DATA_DIR;",
-           "MCL_REALM, MCL_REALM_NAME, MCL_REALM_KEY and the station pins are read by mcl_om at boot, not by these modules"],
+           "MCL_REALM and MCL_REALM_KEY are read by mcl_om at boot; MCL_REALM_NAME is this app's own env, and the per-topic name comes from it"],
           code=True)
     d.edge("M520 126H660"); d.text("t-rel", 590, 118, "boots", anchor="middle")
     d.edge("M285 186V210"); d.text("t-rel", 293, 206, "opens the store first")

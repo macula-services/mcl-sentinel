@@ -41,7 +41,7 @@ services:
       # (monthly). Empty, the facts simply carry no geolocation.
       - ${MCL_SENTINEL_GEOIP_DIR:-/bulk0/mcl-sentinel-geoip}:/geoip:ro
     labels:
-      # Only meaningful if you run watchtower yourself. Harmless otherwise.
+      # Nothing here depends on it: no watchtower runs on the fleet.
       - "com.centurylinklabs.watchtower.enable=true"
     environment:
       # No default. A service that guesses its realm announces itself where

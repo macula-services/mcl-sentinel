@@ -64,7 +64,7 @@
 <text class="t-desc" x="56" y="406">dbip-asn-lite.mmdb, at /geoip</text>
 <rect class="b-sys" x="380" y="300" width="360" height="150" rx="10"/>
 <text class="t-name" x="396" y="328">mcl-sentinel</text>
-<text class="t-type" x="396" y="346">[mcl_om mesh service, own box]</text>
+<text class="t-type" x="396" y="346">[mcl_om mesh service]</text>
 <text class="t-desc" x="396" y="370">Hears configured wardens, records</text>
 <text class="t-desc" x="396" y="386">each sighting, names a campaign</text>
 <text class="t-desc" x="396" y="402">when a second warden sees the</text>
@@ -80,12 +80,13 @@
 <text class="t-desc" x="76" y="610">The wardens this sentinel is</text>
 <text class="t-desc" x="76" y="626">configured with publish</text>
 <text class="t-desc" x="76" y="642">attacker_sighted and attacker_ensnared</text>
-<rect class="b-mac" x="400" y="540" width="340" height="120" rx="10"/>
+<rect class="b-mac" x="400" y="540" width="340" height="136" rx="10"/>
 <text class="t-name" x="416" y="568">macula-realm</text>
 <text class="t-type" x="416" y="586">[Macula infrastructure]</text>
 <text class="t-desc" x="416" y="610">Endorses the node's identity key</text>
-<text class="t-desc" x="416" y="626">and grants the one scope it asks</text>
-<text class="t-desc" x="416" y="642">for, mcl-sentinel</text>
+<text class="t-desc" x="416" y="626">and grants a provider authorization</text>
+<text class="t-desc" x="416" y="642">for each org procedure it advertises,</text>
+<text class="t-desc" x="416" y="658">info and get_limits included</text>
 <rect class="b-mac" x="800" y="540" width="320" height="120" rx="10"/>
 <text class="t-name" x="816" y="568">Macula stations, mesh DHT</text>
 <text class="t-type" x="816" y="586">[Macula infrastructure]</text>

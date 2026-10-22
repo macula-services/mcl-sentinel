@@ -17,11 +17,11 @@ every service, both open.
 
 | Element | Kind | Role |
 | --- | --- | --- |
-| mcl-sentinel | In scope | One OTP release in one container, an `mcl_om` mesh service on its own box. Subscribes to the warden topics, records, correlates and publishes |
+| mcl-sentinel | In scope | One OTP release in one container, an `mcl_om` mesh service. Subscribes to the warden topics, records, correlates and publishes |
 | Service operator | Person | Deploys the release, lists the wardens in `MCL_SENTINEL_WARDENS`, and mounts the DB-IP files |
 | Threat commons consumers | External system, mesh services | Any mesh service that wants to know who is attacking. It reads the four facts on the realm |
 | Warden boxes | External system, `mcl-warden` | The wardens this sentinel is configured with publish `attacker_sighted` and `attacker_ensnared`. No other publisher is heard |
-| macula-realm | Macula infrastructure | Endorses the node's identity key and grants the one scope the service asks for, `mcl-sentinel` |
+| macula-realm | Macula infrastructure | Endorses the node's identity key and grants a a provider authorization per org procedure, the open `info` and `get_limits` included. Without that grant `/health` reads degraded |
 | Macula stations, mesh DHT | Macula infrastructure | The pinned stations are its mesh entry points over QUIC; the facts go out through them |
 | Event store | External system, host directory | `/data` holds the reckon-db store. `threat_sighted_v1` is the evidence an abuse report is built from, kept off the attacked boxes |
 | DB-IP Lite | External system | `dbip-city-lite.mmdb` and `dbip-asn-lite.mmdb`, mounted read-only at `/geoip` and read through `locus` |

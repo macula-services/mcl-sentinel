@@ -171,7 +171,7 @@ runs in the same build image.
 
 A `v*` tag publishes `ghcr.io/macula-services/mcl-sentinel:<version>` and nothing else, signed
 by digest with its SBOM and provenance (macula-ci-images' `attest-image.yml`). A push to
-`main` publishes `:main` and `:<sha>`, which no box follows. `:latest` moves only on a release tag.
+`main` publishes `:main` and `:<sha>`, which no box follows. Nothing moves `:latest` at all.
 The fleet runs a release by digest: macula-fleet's pin-releases workflow finds the signed
 release, verifies it was signed on its tag and pins `<version>@sha256:<digest>`
 (macula-fleet#14, #15), so a green `v*` tag is the deploy. To roll back, revert the pin and
