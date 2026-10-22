@@ -59,7 +59,8 @@ health() ->
 hearing(true)  -> ok;
 hearing(false) -> {degraded, not_subscribed_to_wardens}.
 
-%% Nothing callable. The sentinel's output is its four published facts.
+%% No capability of its own: mcl_om adds the open info and get_limits to every
+%% service. The sentinel's output is its four published facts.
 capabilities() -> [].
 
 %% THE AUTHORITY THIS SERVICE ASKS THE REALM FOR, and deliberately nothing more.

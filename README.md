@@ -47,8 +47,9 @@ on the flag day (macula-io/macula-fleet#27), when the whole fleet moves together
    refused, so the record never inflates.
 3. **Correlates** in an in-memory read model keyed by source address. An
    address seen by a second warden is a **campaign**.
-4. **Publishes** what it recorded, enriched with where the attacker is, and the
-   campaign the moment it becomes one.
+4. **Publishes** four facts: what it recorded, enriched with where the attacker
+   is; a tarpit capture as `attacker_ensnared`; the campaign the moment it
+   becomes one; and a 60-second heartbeat, `sentinel_checked_in`.
 
 The read model is rebuilt from the store once at boot, and after that folded
 only as sightings are recorded. There is no projection: evoq replays the whole
@@ -97,10 +98,13 @@ Rules a consumer can rely on:
 **Geolocation: IP Geolocation by [DB-IP](https://db-ip.com), CC BY 4.0.** Anything
 that shows the geolocation fields credits DB-IP.
 
-Like every mcl service, it also answers `mcl-sentinel/info`, which mcl_om adds: its
-name, version and description, its org and claim labels, node id, the macula
-and mcl_om versions, uptime, the health word and the procedures it advertises.
-Open to any mesh caller, public facts only.
+Like every mcl service, it also answers the two procedures `mcl_om` adds to
+each of them, both open. `mcl-sentinel/info` gives its name, version and
+description, its org and claim labels, node id, the macula and mcl_om versions,
+uptime, the health word and the procedures it advertises;
+`mcl-sentinel/get_limits` gives the inbound guard's limits and current-window
+stats for one procedure or all of them. Open to any mesh caller, public facts
+only.
 
 ## Configuration
 

@@ -28,12 +28,11 @@ services:
     volumes:
       # ⚠ REQUIRED, BECAUSE THIS SERVICE OPENS A STORE. Without the mount the
       # record lives inside the container and every recreate destroys it, which
-      # is the same as not keeping one, and watchtower recreates containers as a
-      # matter of routine.
+      # is the same as not keeping one.
       #
-      # ON A BULK DRIVE, NOT THE ROOT FILESYSTEM, on any fleet node. Those boot
-      # from a small eMMC with a root partition measured in single-digit gigabytes
-      # and keep application data on /bulk0.
+      # ON A BULK DRIVE, NOT THE ROOT FILESYSTEM, where the host has one: a
+      # small flash boot disk leaves a root partition measured in single-digit
+      # gigabytes, and application data belongs on the data disk.
       - ${MCL_DATA:-/bulk0/mcl-sentinel}:/data
       # ⚠ NAMED, SO IT OUTLIVES THE CONTAINER. The node identity key is the
       # sentinel's verified identity: every fact it publishes carries it.
@@ -42,8 +41,7 @@ services:
       # (monthly). Empty, the facts simply carry no geolocation.
       - ${MCL_SENTINEL_GEOIP_DIR:-/bulk0/mcl-sentinel-geoip}:/geoip:ro
     labels:
-      # Only meaningful if you run watchtower: it pulls a new :latest and
-      # recreates the container. Harmless otherwise.
+      # Only meaningful if you run watchtower yourself. Harmless otherwise.
       - "com.centurylinklabs.watchtower.enable=true"
     environment:
       # No default. A service that guesses its realm announces itself where
