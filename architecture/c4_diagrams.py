@@ -180,7 +180,7 @@ def context():
 
 
 def components():
-    d = Diagram("c4-components.svg", "mcl-sentinel components", 1200, 1300)
+    d = Diagram("c4-components.svg", "mcl-sentinel components", 1200, 1320)
     d.bound(16, 40, 1168, 986, "mcl-sentinel [Container: one OTP release]")
     d.box("b-cmp", 40, 66, 480, 120, "mcl_sentinel_app", "[application behaviour]",
           ["start/2 opens the store, then boots:", "mcl_sentinel_store:open(event_store()),",
@@ -196,7 +196,7 @@ def components():
           code=True)
     d.box("b-cmp", 40, 338, 480, 120, "hear_warden_reports", "[gen_server, the only subscriber]",
           ["Subscribes to both warden topics; attributes", "each fact, records it, folds it, and publishes",
-           "attacker_sighted and campaign_detected"], code=True)
+           "sighted, ensnared, campaign and the heartbeat"], code=True)
     d.box("b-cmp", 660, 338, 500, 120, "mcl_sentinel_facts", "[the public contract, pure]",
           ["The four topics, their payloads, the realm", "name check and publish/2; it keeps no state"],
           code=True)
@@ -241,8 +241,9 @@ def components():
     d.edge("M520 792H660"); d.text("t-rel", 560, 784, "lookup/1")
     d.text("t-desc", 40, 1190, "The read model has no projection on purpose: evoq replays the whole log to every handler on each boot, so a projection would fold")
     d.text("t-desc", 40, 1208, "history twice and announce every old campaign again. The ingest is the only folder after boot, and the only publisher of facts.")
-    d.text("t-desc", 40, 1226, "The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/4 and the facts module builds topics with macula_topic, both directly. locus is called only by sentinel_enrich.")
-    d.legend(1250)
+    d.text("t-desc", 40, 1226, "The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/4")
+    d.text("t-desc", 40, 1244, "and the facts module builds topics with macula_topic, both directly. locus is called only by sentinel_enrich.")
+    d.legend(1270)
     d.write()
 
 

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1300" role="img" aria-label="mcl-sentinel components">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1320" role="img" aria-label="mcl-sentinel components">
 <title>mcl-sentinel components</title>
 <style>
 .t-name { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; }
@@ -44,7 +44,7 @@
 }
 </style>
 <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead" d="M0 0L10 5L0 10z"/></marker></defs>
-<rect class="bg" x="0" y="0" width="1200" height="1300"/>
+<rect class="bg" x="0" y="0" width="1200" height="1320"/>
 <rect class="bound" x="16" y="40" width="1168" height="986" rx="12"/>
 <text class="t-bound" x="32" y="62">mcl-sentinel [Container: one OTP release]</text>
 <rect class="b-cmp" x="40" y="66" width="480" height="120" rx="10"/>
@@ -74,7 +74,7 @@
 <text class="t-type" x="56" y="384">[gen_server, the only subscriber]</text>
 <text class="t-desc" x="56" y="408">Subscribes to both warden topics; attributes</text>
 <text class="t-desc" x="56" y="424">each fact, records it, folds it, and publishes</text>
-<text class="t-desc" x="56" y="440">attacker_sighted and campaign_detected</text>
+<text class="t-desc" x="56" y="440">sighted, ensnared, campaign and the heartbeat</text>
 <rect class="b-cmp" x="660" y="338" width="500" height="120" rx="10"/>
 <text class="t-code" x="676" y="366">mcl_sentinel_facts</text>
 <text class="t-type" x="676" y="384">[the public contract, pure]</text>
@@ -154,17 +154,18 @@
 <text class="t-rel" x="560" y="784">lookup/1</text>
 <text class="t-desc" x="40" y="1190">The read model has no projection on purpose: evoq replays the whole log to every handler on each boot, so a projection would fold</text>
 <text class="t-desc" x="40" y="1208">history twice and announce every old campaign again. The ingest is the only folder after boot, and the only publisher of facts.</text>
-<text class="t-desc" x="40" y="1226">The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/4 and the facts module builds topics with macula_topic, both directly. locus is called only by sentinel_enrich.</text>
-<rect class="b-sys" x="24" y="1250" width="22" height="14" rx="3"/>
-<text class="t-leg" x="54" y="1262">In scope</text>
-<rect class="b-per" x="110.8" y="1250" width="22" height="14" rx="3"/>
-<text class="t-leg" x="140.8" y="1262">Person</text>
-<rect class="b-mac" x="184.39999999999998" y="1250" width="22" height="14" rx="3"/>
-<text class="t-leg" x="214.39999999999998" y="1262">Macula infrastructure</text>
-<rect class="b-ext" x="357.0" y="1250" width="22" height="14" rx="3"/>
-<text class="t-leg" x="387.0" y="1262">External system</text>
-<rect class="b-cmp" x="490.0" y="1250" width="22" height="14" rx="3"/>
-<text class="t-leg" x="520.0" y="1262">Container or component</text>
-<rect class="bound" x="669.2" y="1250" width="22" height="14" rx="3"/>
-<text class="t-leg" x="699.2" y="1262">Boundary</text>
+<text class="t-desc" x="40" y="1226">The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/4</text>
+<text class="t-desc" x="40" y="1244">and the facts module builds topics with macula_topic, both directly. locus is called only by sentinel_enrich.</text>
+<rect class="b-sys" x="24" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="54" y="1282">In scope</text>
+<rect class="b-per" x="110.8" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="140.8" y="1282">Person</text>
+<rect class="b-mac" x="184.39999999999998" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="214.39999999999998" y="1282">Macula infrastructure</text>
+<rect class="b-ext" x="357.0" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="387.0" y="1282">External system</text>
+<rect class="b-cmp" x="490.0" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="520.0" y="1282">Container or component</text>
+<rect class="bound" x="669.2" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="699.2" y="1282">Boundary</text>
 </svg>

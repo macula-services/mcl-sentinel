@@ -7,7 +7,9 @@ of, without reading it.*
 1.0 release. The service hears two warden topics, records each sighting as an
 event in its own reckon-db store, keeps a read model in ETS, and publishes
 `attacker_sighted_v1`, `attacker_ensnared_v1`, `campaign_detected_v1` and a
-60-second heartbeat. `capabilities/0` is empty: nothing on the mesh calls it.
+60-second heartbeat. It serves no procedure of its own: `capabilities/0` is the
+list, and `mcl_om` adds `mcl-sentinel/info` and `mcl-sentinel/get_limits` to
+every service, both open.
 
 ## Level 1: system context
 
