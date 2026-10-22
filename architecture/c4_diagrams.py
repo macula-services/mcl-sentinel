@@ -238,10 +238,10 @@ def components():
     d.edge("M285 458V482"); d.text("t-rel", 293, 478, "a sighting")
     d.edge("M520 550H590V686H660"); d.text("t-rel", 528, 566, "executes it")
     d.edge("M285 602V626"); d.text("t-rel", 293, 622, "emits")
-    d.edge("M660 792H520"); d.text("t-rel", 528, 784, "lookup/1")
+    d.edge("M520 792H660"); d.text("t-rel", 560, 784, "lookup/1")
     d.text("t-desc", 40, 1190, "The read model has no projection on purpose: evoq replays the whole log to every handler on each boot, so a projection would fold")
     d.text("t-desc", 40, 1208, "history twice and announce every old campaign again. The ingest is the only folder after boot, and the only publisher of facts.")
-    d.text("t-desc", 40, 1226, "The three library boxes are drawn without arrows: every module above reaches the mesh through mcl_om, and locus is called only by sentinel_enrich.")
+    d.text("t-desc", 40, 1226, "The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/4 and the facts module builds topics with macula_topic, both directly. locus is called only by sentinel_enrich.")
     d.legend(1250)
     d.write()
 
