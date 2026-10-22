@@ -186,8 +186,8 @@ def components():
           ["start/2 opens the store, then boots:", "mcl_sentinel_store:open(event_store()),",
            "then mcl_om:boot(mcl_sentinel_service)"], code=True)
     d.box("b-cmp", 660, 66, 500, 120, "mcl_sentinel_service", "[mcl_om_service behaviour]",
-          ["info, start, stop, health, capabilities,", "identity_spec, plus event_store/0 and",
-           "hearing/1. capabilities/0 is []"], code=True)
+          ["The mcl_om_service callbacks: start, stop, health,", "capabilities, identity_spec, plus event_store/0 and",
+           "hearing/1. capabilities/0 is empty; mcl_om adds info and get_limits"], code=True)
     d.box("b-cmp", 40, 210, 480, 104, "mcl_sentinel_store", "[reckon-db store + evoq subscription]",
           ["Starts the store at MCL_DATA_DIR, waits", "until reckon_db lists it, subscribes evoq"],
           code=True)
@@ -240,7 +240,7 @@ def components():
     d.edge("M285 602V626"); d.text("t-rel", 293, 622, "emits")
     d.edge("M520 792H660"); d.text("t-rel", 560, 784, "lookup/1")
     d.text("t-desc", 40, 1190, "The read model has no projection on purpose: evoq replays the whole log to every handler on each boot, so a projection would fold")
-    d.text("t-desc", 40, 1208, "history twice and announce every old campaign again. The ingest is the only folder after boot, and the only publisher of facts.")
+    d.text("t-desc", 40, 1208, "history twice and report every old campaign again. The ingest folds the read model after boot, and publishes the facts.")
     d.text("t-desc", 40, 1226, "The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/4")
     d.text("t-desc", 40, 1244, "and the facts module builds topics with macula_topic, both directly. locus is called only by sentinel_enrich.")
     d.legend(1270)

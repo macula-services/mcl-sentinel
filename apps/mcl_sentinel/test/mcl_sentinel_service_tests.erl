@@ -64,7 +64,8 @@ health_is_degraded_until_the_wardens_are_subscribed_test() ->
     ?assertEqual({degraded, not_subscribed_to_wardens}, ?SERVICE:hearing(false)),
     ?assertEqual(ok, ?SERVICE:hearing(true)).
 
-%% The sentinel serves nothing callable: its output is its four published facts.
+%% capabilities/0 is empty: the sentinel's own output is its four published facts,
+%% and mcl_om adds the open info and get_limits to every service.
 announces_no_capability_test() ->
     ?assertEqual([], ?SERVICE:capabilities()).
 

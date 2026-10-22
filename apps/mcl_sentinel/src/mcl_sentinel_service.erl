@@ -5,9 +5,10 @@
 %% watching. The `-behaviour' attribute below is what turns that into a compile
 %% error instead, and the generated test suite guards the attribute itself.
 %%
-%% IT ANNOUNCES NOTHING AND ASKS FOR NOTHING, on purpose. A service that does
-%% nothing yet has no capability to offer and needs no authority from the realm.
-%% Advertising a capability before it exists puts a lie on the mesh that another
+%% IT DECLARES NO CAPABILITY OF ITS OWN AND ASKS FOR NO AUTHORITY, on purpose.
+%% A service that does nothing yet has nothing to offer and needs nothing from
+%% the realm; mcl_om adds its open info and get_limits to every service anyway.
+%% Declaring a capability before it exists puts a lie on the mesh that another
 %% service can find and call. Both lists grow when the thing they name exists,
 %% and a generated test fails when they change, so growing them is a deliberate
 %% act rather than a comment someone forgot.

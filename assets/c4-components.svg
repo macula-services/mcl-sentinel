@@ -56,9 +56,9 @@
 <rect class="b-cmp" x="660" y="66" width="500" height="120" rx="10"/>
 <text class="t-code" x="676" y="94">mcl_sentinel_service</text>
 <text class="t-type" x="676" y="112">[mcl_om_service behaviour]</text>
-<text class="t-desc" x="676" y="136">info, start, stop, health, capabilities,</text>
-<text class="t-desc" x="676" y="152">identity_spec, plus event_store/0 and</text>
-<text class="t-desc" x="676" y="168">hearing/1. capabilities/0 is []</text>
+<text class="t-desc" x="676" y="136">The mcl_om_service callbacks: start, stop, health,</text>
+<text class="t-desc" x="676" y="152">capabilities, identity_spec, plus event_store/0 and</text>
+<text class="t-desc" x="676" y="168">hearing/1. capabilities/0 is empty; mcl_om adds info and get_limits</text>
 <rect class="b-cmp" x="40" y="210" width="480" height="104" rx="10"/>
 <text class="t-code" x="56" y="238">mcl_sentinel_store</text>
 <text class="t-type" x="56" y="256">[reckon-db store + evoq subscription]</text>
@@ -153,7 +153,7 @@
 <path class="edge" d="M520 792H660" marker-end="url(#a)"/>
 <text class="t-rel" x="560" y="784">lookup/1</text>
 <text class="t-desc" x="40" y="1190">The read model has no projection on purpose: evoq replays the whole log to every handler on each boot, so a projection would fold</text>
-<text class="t-desc" x="40" y="1208">history twice and announce every old campaign again. The ingest is the only folder after boot, and the only publisher of facts.</text>
+<text class="t-desc" x="40" y="1208">history twice and report every old campaign again. The ingest folds the read model after boot, and publishes the facts.</text>
 <text class="t-desc" x="40" y="1226">The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/4</text>
 <text class="t-desc" x="40" y="1244">and the facts module builds topics with macula_topic, both directly. locus is called only by sentinel_enrich.</text>
 <rect class="b-sys" x="24" y="1270" width="22" height="14" rx="3"/>
