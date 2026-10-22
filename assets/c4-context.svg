@@ -89,7 +89,7 @@
 <rect class="b-mac" x="800" y="540" width="320" height="120" rx="10"/>
 <text class="t-name" x="816" y="568">Macula stations, mesh DHT</text>
 <text class="t-type" x="816" y="586">[Macula infrastructure]</text>
-<text class="t-desc" x="816" y="610">Two pinned stations are its mesh</text>
+<text class="t-desc" x="816" y="610">The pinned stations are its mesh</text>
 <text class="t-desc" x="816" y="626">entry points over QUIC; the facts</text>
 <text class="t-desc" x="816" y="642">go out through them</text>
 <path class="edge" d="M210 164V240H420V300" marker-end="url(#a)"/>

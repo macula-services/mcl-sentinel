@@ -31,7 +31,7 @@ on:
       - 'docs/**'
       - 'scripts/**'
       # assets/ holds the C4 diagrams, which no build reads: a diagram-only
-      # commit must not rebuild an image and restart the box.
+      # commit must not rebuild and re-push an image.
       - 'assets/**'
   workflow_dispatch:
 

@@ -20,7 +20,7 @@ event in its own reckon-db store, keeps a read model in ETS, and publishes
 | Threat commons consumers | External system, mesh services | Any mesh service that wants to know who is attacking. It reads the four facts on the realm |
 | Warden boxes | External system, `mcl-warden` | The wardens this sentinel is configured with publish `attacker_sighted` and `attacker_ensnared`. No other publisher is heard |
 | macula-realm | Macula infrastructure | Endorses the node's identity key and grants the one scope the service asks for, `mcl-sentinel` |
-| Macula stations, mesh DHT | Macula infrastructure | Two pinned stations are its mesh entry points over QUIC; the facts go out through them |
+| Macula stations, mesh DHT | Macula infrastructure | The pinned stations are its mesh entry points over QUIC; the facts go out through them |
 | Event store | External system, host directory | `/data` holds the reckon-db store. `threat_sighted_v1` is the evidence an abuse report is built from, kept off the attacked boxes |
 | DB-IP Lite | External system | `dbip-city-lite.mmdb` and `dbip-asn-lite.mmdb`, mounted read-only at `/geoip` and read through `locus` |
 
@@ -72,11 +72,13 @@ environment in `config/sys.config.src`, the `Containerfile` and
 `deploy/docker-compose.yml`. When one of those changes, the diagram changes in
 the same commit.
 
+**Where the station list comes from.** It is not in `config/sys.config.src`: `mcl_om` reads `MACULA_STATION_SEEDS` and `MACULA_STATION_NODE_IDS` from the environment at boot, paired index for index, so this repository pins no station and the list may be any length.
+
 Two rules for the files themselves, so they render everywhere they are read
 (GitHub, an IDE, `rsvg-convert`): self-contained SVG, and literal colours in
 plain classes plus a `prefers-color-scheme` dark block, never CSS custom
 properties, which `rsvg-convert` renders black.
 
 The check that keeps them here is the `c4-model` job in
-`.github/workflows/build-push.yml`. It is red until both files exist and are
+`.github/workflows/c4-model.yml`. It is red until both files exist and are
 shown, and it stays red if either one goes missing.
