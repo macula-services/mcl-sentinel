@@ -186,9 +186,9 @@ def components():
           ["start/2 opens the store, then boots:", "mcl_sentinel_store:open(event_store()),",
            "then mcl_om:boot(mcl_sentinel_service)"], code=True)
     d.box("b-cmp", 660, 66, 500, 120, "mcl_sentinel_service", "[mcl_om_service behaviour]",
-          ["callbacks: start/1, stop/1, health/0, capabilities/0, identity_spec/0,",
-           "info/0, event_store/0, hearing/1; mcl_om advertises info and get_limits",
-           "on every node. capabilities/0 is empty."], code=True)
+          ["mcl_om_service callbacks: start/1, stop/1, health/0, capabilities/0,",
+           "identity_spec/0, info/0; mcl_om advertises info and get_limits on every",
+           "node. This module also exports event_store/0 and hearing/1."], code=True)
     d.box("b-cmp", 40, 210, 480, 104, "mcl_sentinel_store", "[reckon-db store + evoq subscription]",
           ["Starts the store at MCL_DATA_DIR, waits", "until reckon_db lists it, subscribes evoq"],
           code=True)
