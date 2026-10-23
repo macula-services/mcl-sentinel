@@ -10,8 +10,8 @@
 %%% recorded (not a redelivery the aggregate refused, not a failed write) is
 %%% folded into the read model and published as `attacker_sighted', stamped
 %%% {epoch, seq}. If that fold makes the address a campaign, `campaign_detected'
-%%% follows. This is the ONLY place the read model is folded after boot, and the
-%%% only place facts are published, so nothing is announced twice.
+%%% follows. The read model is folded here after boot and the facts are published
+%%% from here, so a sighting is never reported twice.
 %%%
 %%% `epoch' is set once per boot and `seq' counts recorded sightings within it,
 %%% so a consumer that sees the epoch change knows no continuity is claimed

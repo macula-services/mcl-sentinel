@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 810" role="img" aria-label="mcl-sentinel system context">
+<title>mcl-sentinel system context</title>
+<style>
+.t-name { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; }
+.t-desc { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 12.5px; }
+.t-rel { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 11.5px; paint-order: stroke; stroke-width: 4px; stroke-linejoin: round; }
+.t-code { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 13px; font-weight: 600; }
+.t-type { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; }
+.t-bound { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 12px; font-weight: 600; }
+.t-leg { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 12px; }
+.edge { fill: none; stroke-width: 1.25; }
+.edge-later { fill: none; stroke-width: 1.25; stroke-dasharray: 5 4; }
+.bg { fill: #FFFFFF; }
+.b-sys { fill: #F5E9CC; stroke: #A56F0A; stroke-width: 2; }
+.b-per { fill: #E3EBF2; stroke: #3B5B7A; stroke-width: 1.25; }
+.b-mac { fill: #E6E4EE; stroke: #5E5A78; stroke-width: 1.25; }
+.b-ext { fill: #ECEFED; stroke: #8A9791; stroke-width: 1.25; }
+.b-cmp { fill: #FFFFFF; stroke: #8A9791; stroke-width: 1.25; }
+.b-later { fill: none; stroke: #8A9791; stroke-width: 1.25; stroke-dasharray: 5 4; }
+.bound { fill: none; stroke: #B3BDB8; stroke-width: 1; }
+.head { fill: #3B5B7A; }
+.t-name, .t-code { fill: #16201D; }
+.t-type, .t-bound, .t-leg { fill: #66736E; }
+.t-desc { fill: #34413C; }
+.t-rel { fill: #66736E; stroke: #FFFFFF; }
+.edge, .edge-later { stroke: #8A9791; }
+.arrowhead { fill: #8A9791; }
+@media (prefers-color-scheme: dark) {
+.bg { fill: #171F1C; }
+.b-sys { fill: #3A2E13; stroke: #E3AA3C; }
+.b-per { fill: #1D2A36; stroke: #8EB4D8; }
+.b-mac { fill: #26243A; stroke: #A9A4C8; }
+.b-ext { fill: #1C2421; stroke: #7D8B85; }
+.b-cmp { fill: #171F1C; stroke: #7D8B85; }
+.b-later { stroke: #7D8B85; }
+.bound { stroke: #4A5752; }
+.head { fill: #8EB4D8; }
+.t-name, .t-code { fill: #E6ECE9; }
+.t-type, .t-bound, .t-leg { fill: #93A09A; }
+.t-desc { fill: #C3CDC8; }
+.t-rel { fill: #93A09A; stroke: #171F1C; }
+.edge, .edge-later { stroke: #7D8B85; }
+.arrowhead { fill: #7D8B85; }
+}
+</style>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="bg" x="0" y="0" width="1200" height="810"/>
+<rect class="b-per" x="60" y="60" width="300" height="104" rx="10"/>
+<circle class="head" cx="86" cy="84" r="9"/>
+<text class="t-name" x="104" y="88">Service operator</text>
+<text class="t-type" x="104" y="106">[Person]</text>
+<text class="t-desc" x="76" y="130">Deploys the release, lists the</text>
+<text class="t-desc" x="76" y="146">wardens, mounts the DB-IP files</text>
+<rect class="b-ext" x="760" y="60" width="320" height="120" rx="10"/>
+<text class="t-name" x="776" y="88">Threat commons consumers</text>
+<text class="t-type" x="776" y="106">[External system, mesh services]</text>
+<text class="t-desc" x="776" y="130">Any mesh service that wants to</text>
+<text class="t-desc" x="776" y="146">know who is attacking: it reads</text>
+<text class="t-desc" x="776" y="162">the four facts on the realm</text>
+<rect class="b-ext" x="40" y="320" width="280" height="110" rx="10"/>
+<text class="t-name" x="56" y="348">DB-IP Lite</text>
+<text class="t-type" x="56" y="366">[External system]</text>
+<text class="t-desc" x="56" y="390">dbip-city-lite.mmdb and</text>
+<text class="t-desc" x="56" y="406">dbip-asn-lite.mmdb, at /geoip</text>
+<rect class="b-sys" x="380" y="300" width="360" height="150" rx="10"/>
+<text class="t-name" x="396" y="328">mcl-sentinel</text>
+<text class="t-type" x="396" y="346">[mcl_om mesh service]</text>
+<text class="t-desc" x="396" y="370">Hears configured wardens, records</text>
+<text class="t-desc" x="396" y="386">each sighting, names a campaign</text>
+<text class="t-desc" x="396" y="402">when a second warden sees the</text>
+<text class="t-desc" x="396" y="418">address, and publishes four facts</text>
+<rect class="b-ext" x="800" y="300" width="320" height="110" rx="10"/>
+<text class="t-name" x="816" y="328">Event store</text>
+<text class="t-type" x="816" y="346">[External system, host directory]</text>
+<text class="t-desc" x="816" y="370">/data holds the reckon-db store:</text>
+<text class="t-desc" x="816" y="386">threat_sighted_v1 is the evidence</text>
+<rect class="b-ext" x="60" y="540" width="300" height="140" rx="10"/>
+<text class="t-name" x="76" y="568">Warden boxes</text>
+<text class="t-type" x="76" y="586">[External system, mcl-warden]</text>
+<text class="t-desc" x="76" y="610">The wardens this sentinel is</text>
+<text class="t-desc" x="76" y="626">configured with publish</text>
+<text class="t-desc" x="76" y="642">attacker_sighted and attacker_ensnared</text>
+<rect class="b-mac" x="400" y="540" width="340" height="136" rx="10"/>
+<text class="t-name" x="416" y="568">macula-realm</text>
+<text class="t-type" x="416" y="586">[Macula infrastructure]</text>
+<text class="t-desc" x="416" y="610">Endorses the node's identity key</text>
+<text class="t-desc" x="416" y="626">and grants a provider authorization</text>
+<text class="t-desc" x="416" y="642">for each org procedure it advertises,</text>
+<text class="t-desc" x="416" y="658">info and get_limits included</text>
+<rect class="b-mac" x="800" y="540" width="320" height="120" rx="10"/>
+<text class="t-name" x="816" y="568">Macula stations, mesh DHT</text>
+<text class="t-type" x="816" y="586">[Macula infrastructure]</text>
+<text class="t-desc" x="816" y="610">The pinned stations are its mesh</text>
+<text class="t-desc" x="816" y="626">entry points over QUIC; the facts</text>
+<text class="t-desc" x="816" y="642">go out through them</text>
+<path class="edge" d="M210 164V240H420V300" marker-end="url(#a)"/>
+<text class="t-rel" x="218" y="200">deploys; lists the wardens</text>
+<path class="edge" d="M700 300V220H900V180" marker-end="url(#a)"/>
+<text class="t-rel" x="908" y="210">publishes four facts</text>
+<path class="edge" d="M320 375H380" marker-end="url(#a)"/>
+<text class="t-rel" x="48" y="312">reads dbip-city-lite.mmdb</text>
+<path class="edge" d="M740 355H800" marker-end="url(#a)"/>
+<text class="t-rel" x="748" y="292">writes threat_sighted_v1</text>
+<path class="edge" d="M210 540V490H440V450" marker-end="url(#a)"/>
+<text class="t-rel" x="218" y="462">publishes attacker_sighted and</text>
+<text class="t-rel" x="218" y="478">attacker_ensnared</text>
+<path class="edge" d="M560 450V540" marker-end="url(#a)"/>
+<text class="t-rel" x="568" y="500">boot claim, scope mcl-sentinel</text>
+<path class="edge" d="M740 420H780V520H900V540" marker-end="url(#a)"/>
+<text class="t-rel" x="788" y="440">the four facts go out</text>
+<text class="t-rel" x="788" y="456">over the mesh</text>
+<text class="t-desc" x="60" y="710">The sentinel applies nothing and holds no lock: it reads what wardens publish, keeps the evidence in its own store, and publishes what it recorded.</text>
+<text class="t-desc" x="60" y="728">Only a configured warden is heard, by the publisher macula verified, never by anything the payload claims about itself. The record is the evidence an abuse report is built from.</text>
+<text class="t-desc" x="60" y="746">Geolocation is additive: with no DB-IP files, the facts carry no country, city or ASN, and nothing else changes. IP geolocation by DB-IP, CC BY 4.0.</text>
+<rect class="b-sys" x="24" y="770" width="22" height="14" rx="3"/>
+<text class="t-leg" x="54" y="782">In scope</text>
+<rect class="b-per" x="110.8" y="770" width="22" height="14" rx="3"/>
+<text class="t-leg" x="140.8" y="782">Person</text>
+<rect class="b-mac" x="184.39999999999998" y="770" width="22" height="14" rx="3"/>
+<text class="t-leg" x="214.39999999999998" y="782">Macula infrastructure</text>
+<rect class="b-ext" x="357.0" y="770" width="22" height="14" rx="3"/>
+<text class="t-leg" x="387.0" y="782">External system</text>
+<rect class="b-cmp" x="490.0" y="770" width="22" height="14" rx="3"/>
+<text class="t-leg" x="520.0" y="782">Container or component</text>
+</svg>

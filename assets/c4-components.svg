@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1320" role="img" aria-label="mcl-sentinel components">
+<title>mcl-sentinel components</title>
+<style>
+.t-name { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; }
+.t-desc { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 12.5px; }
+.t-rel { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 11.5px; paint-order: stroke; stroke-width: 4px; stroke-linejoin: round; }
+.t-code { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 13px; font-weight: 600; }
+.t-type { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; }
+.t-bound { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 12px; font-weight: 600; }
+.t-leg { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 12px; }
+.edge { fill: none; stroke-width: 1.25; }
+.edge-later { fill: none; stroke-width: 1.25; stroke-dasharray: 5 4; }
+.bg { fill: #FFFFFF; }
+.b-sys { fill: #F5E9CC; stroke: #A56F0A; stroke-width: 2; }
+.b-per { fill: #E3EBF2; stroke: #3B5B7A; stroke-width: 1.25; }
+.b-mac { fill: #E6E4EE; stroke: #5E5A78; stroke-width: 1.25; }
+.b-ext { fill: #ECEFED; stroke: #8A9791; stroke-width: 1.25; }
+.b-cmp { fill: #FFFFFF; stroke: #8A9791; stroke-width: 1.25; }
+.b-later { fill: none; stroke: #8A9791; stroke-width: 1.25; stroke-dasharray: 5 4; }
+.bound { fill: none; stroke: #B3BDB8; stroke-width: 1; }
+.head { fill: #3B5B7A; }
+.t-name, .t-code { fill: #16201D; }
+.t-type, .t-bound, .t-leg { fill: #66736E; }
+.t-desc { fill: #34413C; }
+.t-rel { fill: #66736E; stroke: #FFFFFF; }
+.edge, .edge-later { stroke: #8A9791; }
+.arrowhead { fill: #8A9791; }
+@media (prefers-color-scheme: dark) {
+.bg { fill: #171F1C; }
+.b-sys { fill: #3A2E13; stroke: #E3AA3C; }
+.b-per { fill: #1D2A36; stroke: #8EB4D8; }
+.b-mac { fill: #26243A; stroke: #A9A4C8; }
+.b-ext { fill: #1C2421; stroke: #7D8B85; }
+.b-cmp { fill: #171F1C; stroke: #7D8B85; }
+.b-later { stroke: #7D8B85; }
+.bound { stroke: #4A5752; }
+.head { fill: #8EB4D8; }
+.t-name, .t-code { fill: #E6ECE9; }
+.t-type, .t-bound, .t-leg { fill: #93A09A; }
+.t-desc { fill: #C3CDC8; }
+.t-rel { fill: #93A09A; stroke: #171F1C; }
+.edge, .edge-later { stroke: #7D8B85; }
+.arrowhead { fill: #7D8B85; }
+}
+</style>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="bg" x="0" y="0" width="1200" height="1320"/>
+<rect class="bound" x="16" y="40" width="1168" height="986" rx="12"/>
+<text class="t-bound" x="32" y="62">mcl-sentinel [Container: one OTP release]</text>
+<rect class="b-cmp" x="40" y="66" width="480" height="120" rx="10"/>
+<text class="t-code" x="56" y="94">mcl_sentinel_app</text>
+<text class="t-type" x="56" y="112">[application behaviour]</text>
+<text class="t-desc" x="56" y="136">start/2 opens the store, then boots:</text>
+<text class="t-desc" x="56" y="152">mcl_sentinel_store:open(event_store()),</text>
+<text class="t-desc" x="56" y="168">then mcl_om:boot(mcl_sentinel_service)</text>
+<rect class="b-cmp" x="660" y="66" width="500" height="120" rx="10"/>
+<text class="t-code" x="676" y="94">mcl_sentinel_service</text>
+<text class="t-type" x="676" y="112">[mcl_om_service behaviour]</text>
+<text class="t-desc" x="676" y="136">The mcl_om_service callbacks: info, start, stop, health,</text>
+<text class="t-desc" x="676" y="152">capabilities, identity_spec, plus event_store/0 and hearing/1.</text>
+<text class="t-desc" x="676" y="168">capabilities/0 is empty; mcl_om adds info and get_limits</text>
+<rect class="b-cmp" x="40" y="210" width="480" height="104" rx="10"/>
+<text class="t-code" x="56" y="238">mcl_sentinel_store</text>
+<text class="t-type" x="56" y="256">[reckon-db store + evoq subscription]</text>
+<text class="t-desc" x="56" y="280">Starts the store at MCL_DATA_DIR, waits</text>
+<text class="t-desc" x="56" y="296">until reckon_db lists it, subscribes evoq</text>
+<rect class="b-cmp" x="660" y="210" width="500" height="104" rx="10"/>
+<text class="t-code" x="676" y="238">mcl_sentinel_sup</text>
+<text class="t-type" x="676" y="256">[supervisor, rest_for_one]</text>
+<text class="t-desc" x="676" y="280">Three children in order: sentinel_enrich,</text>
+<text class="t-desc" x="676" y="296">sentinel_threats, hear_warden_reports</text>
+<rect class="b-cmp" x="40" y="338" width="480" height="120" rx="10"/>
+<text class="t-code" x="56" y="366">hear_warden_reports</text>
+<text class="t-type" x="56" y="384">[gen_server, the only subscriber]</text>
+<text class="t-desc" x="56" y="408">Subscribes to both warden topics; attributes</text>
+<text class="t-desc" x="56" y="424">each fact, records it, folds it, and publishes</text>
+<text class="t-desc" x="56" y="440">sighted, ensnared, campaign and the heartbeat</text>
+<rect class="b-cmp" x="660" y="338" width="500" height="120" rx="10"/>
+<text class="t-code" x="676" y="366">mcl_sentinel_facts</text>
+<text class="t-type" x="676" y="384">[the public contract, pure]</text>
+<text class="t-desc" x="676" y="408">The four topics, their payloads, the realm</text>
+<text class="t-desc" x="676" y="424">name check and publish/2; it keeps no state</text>
+<rect class="b-cmp" x="40" y="482" width="480" height="120" rx="10"/>
+<text class="t-code" x="56" y="510">maybe_report_threat</text>
+<text class="t-type" x="56" y="528">[the report_threat handler]</text>
+<text class="t-desc" x="56" y="552">Validates the address, emits threat_sighted_v1,</text>
+<text class="t-desc" x="56" y="568">derives sighting_id/4 from the observation,</text>
+<text class="t-desc" x="56" y="584">dispatches through evoq_command_router</text>
+<rect class="b-cmp" x="660" y="482" width="500" height="120" rx="10"/>
+<text class="t-code" x="676" y="510">warden_report</text>
+<text class="t-type" x="676" y="528">[pure, the admission gate]</text>
+<text class="t-desc" x="676" y="552">wardens/0 parses MCL_SENTINEL_WARDENS;</text>
+<text class="t-desc" x="676" y="568">attribute/4 takes a report only when the</text>
+<text class="t-desc" x="676" y="584">verified publisher is on that list</text>
+<rect class="b-cmp" x="40" y="626" width="480" height="104" rx="10"/>
+<text class="t-code" x="56" y="654">threat_sighted_v1</text>
+<text class="t-type" x="56" y="672">[evoq_event, the evidence]</text>
+<text class="t-desc" x="56" y="696">One event per sighting stream; immutable,</text>
+<text class="t-desc" x="56" y="712">attributed to the warden that signed it</text>
+<rect class="b-cmp" x="660" y="626" width="500" height="104" rx="10"/>
+<text class="t-code" x="676" y="654">threat_aggregate</text>
+<text class="t-type" x="676" y="672">[evoq_aggregate + sighting_state]</text>
+<text class="t-desc" x="676" y="696">One stream per sighting; a redelivered</text>
+<text class="t-desc" x="676" y="712">observation is refused here with {ok, []}</text>
+<rect class="b-cmp" x="40" y="754" width="480" height="104" rx="10"/>
+<text class="t-code" x="56" y="782">sentinel_threats</text>
+<text class="t-type" x="56" y="800">[gen_server, ETS read model]</text>
+<text class="t-desc" x="56" y="824">Keyed by source address; rebuilt from the log</text>
+<text class="t-desc" x="56" y="840">once at boot, then folded by ingest only</text>
+<rect class="b-cmp" x="660" y="754" width="500" height="104" rx="10"/>
+<text class="t-code" x="676" y="782">sentinel_enrich</text>
+<text class="t-type" x="676" y="800">[gen_server + locus]</text>
+<text class="t-desc" x="676" y="824">Loads the DB-IP city and ASN files before</text>
+<text class="t-desc" x="676" y="840">the read model starts; lookup/1 is additive</text>
+<rect class="b-mac" x="40" y="882" width="360" height="120" rx="10"/>
+<text class="t-code" x="56" y="910">mcl_om</text>
+<text class="t-type" x="56" y="928">[library, ~&gt; 1.4]</text>
+<text class="t-desc" x="56" y="952">boot/1 wires mesh, identity, health;</text>
+<text class="t-desc" x="56" y="968">publishes through mcl_om_pubsub</text>
+<rect class="b-mac" x="420" y="882" width="360" height="120" rx="10"/>
+<text class="t-code" x="436" y="910">macula</text>
+<text class="t-type" x="436" y="928">[library, ~&gt; 16.0]</text>
+<text class="t-desc" x="436" y="952">subscribe/4, the topic names, the wire</text>
+<text class="t-desc" x="436" y="968">codec, and the signed DHT records</text>
+<rect class="b-mac" x="800" y="882" width="360" height="120" rx="10"/>
+<text class="t-code" x="816" y="910">reckon_db, evoq, reckon_evoq</text>
+<text class="t-type" x="816" y="928">[libraries]</text>
+<text class="t-desc" x="816" y="952">the store, the aggregate, command and</text>
+<text class="t-desc" x="816" y="968">event behaviours; locus reads the DB-IP files</text>
+<rect class="b-ext" x="40" y="1056" width="1120" height="104" rx="10"/>
+<text class="t-code" x="56" y="1084">the host environment</text>
+<text class="t-type" x="56" y="1102">[environment, read at boot; no secret here]</text>
+<text class="t-desc" x="56" y="1126">MCL_SENTINEL_WARDENS (the only callers whose reports are taken), MCL_SENTINEL_GEOIP (/geoip, set in the Containerfile), MCL_DATA_DIR;</text>
+<text class="t-desc" x="56" y="1142">MCL_REALM and MCL_REALM_KEY are read by mcl_om at boot; MCL_REALM_NAME is this app's own env, and the per-topic name comes from it</text>
+<path class="edge" d="M520 126H660" marker-end="url(#a)"/>
+<text class="t-rel" x="590" y="118" text-anchor="middle">boots</text>
+<path class="edge" d="M285 186V210" marker-end="url(#a)"/>
+<text class="t-rel" x="293" y="206">opens the store first</text>
+<path class="edge" d="M915 186V210" marker-end="url(#a)"/>
+<text class="t-rel" x="923" y="206">start/1</text>
+<path class="edge" d="M660 262H620V310H440V338" marker-end="url(#a)"/>
+<text class="t-rel" x="528" y="302">starts its children</text>
+<path class="edge" d="M520 398H660" marker-end="url(#a)"/>
+<text class="t-rel" x="528" y="390">publish/2</text>
+<path class="edge" d="M520 430H590V500H660" marker-end="url(#a)"/>
+<text class="t-rel" x="528" y="470">attribute/4</text>
+<path class="edge" d="M285 458V482" marker-end="url(#a)"/>
+<text class="t-rel" x="293" y="478">a sighting</text>
+<path class="edge" d="M520 550H590V686H660" marker-end="url(#a)"/>
+<text class="t-rel" x="528" y="566">executes it</text>
+<path class="edge" d="M285 602V626" marker-end="url(#a)"/>
+<text class="t-rel" x="293" y="622">emits</text>
+<path class="edge" d="M520 792H660" marker-end="url(#a)"/>
+<text class="t-rel" x="560" y="784">lookup/1</text>
+<text class="t-desc" x="40" y="1190">The read model has no projection on purpose: evoq replays the whole log to every handler on each boot, so a projection would fold</text>
+<text class="t-desc" x="40" y="1208">history twice and report every old campaign again. The ingest folds the read model after boot, and publishes the facts.</text>
+<text class="t-desc" x="40" y="1226">The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/4</text>
+<text class="t-desc" x="40" y="1244">and the facts module builds topics with macula_topic, both directly. locus is called only by sentinel_enrich.</text>
+<rect class="b-sys" x="24" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="54" y="1282">In scope</text>
+<rect class="b-per" x="110.8" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="140.8" y="1282">Person</text>
+<rect class="b-mac" x="184.39999999999998" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="214.39999999999998" y="1282">Macula infrastructure</text>
+<rect class="b-ext" x="357.0" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="387.0" y="1282">External system</text>
+<rect class="b-cmp" x="490.0" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="520.0" y="1282">Container or component</text>
+<rect class="bound" x="669.2" y="1270" width="22" height="14" rx="3"/>
+<text class="t-leg" x="699.2" y="1282">Boundary</text>
+</svg>
