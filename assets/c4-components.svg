@@ -56,9 +56,9 @@
 <rect class="b-cmp" x="660" y="66" width="500" height="120" rx="10"/>
 <text class="t-code" x="676" y="94">mcl_sentinel_service</text>
 <text class="t-type" x="676" y="112">[mcl_om_service behaviour]</text>
-<text class="t-desc" x="676" y="136">The mcl_om_service callbacks: info, start, stop, health,</text>
-<text class="t-desc" x="676" y="152">capabilities, identity_spec, plus event_store/0 and hearing/1.</text>
-<text class="t-desc" x="676" y="168">capabilities/0 is empty; mcl_om adds info and get_limits</text>
+<text class="t-desc" x="676" y="136">mcl_om_service callbacks: start/1, stop/1, health/0, capabilities/0,</text>
+<text class="t-desc" x="676" y="152">identity_spec/0, info/0; mcl_om advertises info and get_limits on every</text>
+<text class="t-desc" x="676" y="168">node. This module also exports event_store/0 and hearing/1.</text>
 <rect class="b-cmp" x="40" y="210" width="480" height="104" rx="10"/>
 <text class="t-code" x="56" y="238">mcl_sentinel_store</text>
 <text class="t-type" x="56" y="256">[reckon-db store + evoq subscription]</text>
