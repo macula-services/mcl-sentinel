@@ -177,6 +177,15 @@ release, verifies it was signed on its tag and pins `<version>@sha256:<digest>`
 (macula-fleet#14, #15), so a green `v*` tag is the deploy. To roll back, revert the pin and
 hold the image there.
 
+## Architecture
+
+The C4 model is in [architecture/README.md](architecture/README.md), with its
+diagrams drawn by `architecture/c4_diagrams.py` into `assets/`. Change the
+script, run it (`python3 architecture/c4_diagrams.py`), and look at the result
+before committing.
+
+![mcl-sentinel system context](assets/c4-context.svg)
+
 ## License
 
 Apache-2.0. See [LICENSE](LICENSE). The DB-IP Lite data it reads is CC BY 4.0
