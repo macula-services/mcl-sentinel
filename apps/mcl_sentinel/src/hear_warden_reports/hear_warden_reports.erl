@@ -97,14 +97,27 @@ terminate(_Reason, _St) -> ok.
 
 %% Only the topics not already held are subscribed: subscribing a held one
 %% again would deliver its facts twice, and an ensnarement is not deduplicated.
-subscribe({ok, Pool, Realm}, #st{topics = Topics, refs = Refs} = St) ->
+subscribe({ok, Pool, Realm}, #st{topics = Topics, refs = Refs, wardens = Wardens} = St) ->
     Missing = maps:keys(Topics) -- maps:values(Refs),
+    Opts = #{sources => sources(Wardens)},
     Held = lists:foldl(fun(Topic, Acc) ->
-                               held(macula:subscribe(Pool, Realm, Topic, self()), Topic, Acc)
+                               held(macula:subscribe(Pool, Realm, Topic, self(), Opts), Topic, Acc)
                        end, Refs, Missing),
     retry_unless_complete(St#st{refs = Held});
 subscribe({error, mesh_unavailable}, St) ->
     retry_unless_complete(St).
+
+%% WHO MAY DELIVER TO US (macula 18, macula#147, macula-io/macula): a
+%% subscription that names no sources is refused outright, and macula 18
+%% dropped the four-argument `subscribe/4' that asked for none. The
+%% declaration is the configured wardens by the publisher macula verified --
+%% `{nodes, Ids}' is a comparison against that key, not a credential, and it
+%% costs no lookup. It is also exactly the rule this module already applied to
+%% every fact it read (`warden_report:attribute/4'): naming it here refuses an
+%% unlisted publisher at the pool instead of after delivery, so the sentinel
+%% hears only its wardens at all.
+sources(Wardens) ->
+    {nodes, [binary:decode_hex(W) || W <- Wardens]}.
 
 held({ok, Ref}, Topic, Refs) ->
     Refs#{Ref => Topic};

@@ -197,7 +197,8 @@ only_a_lost_subscription_is_renewed_test() ->
         ok = meck:new(mcl_om, [non_strict]),
         ok = meck:expect(mcl_om, mesh_handles, fun() -> {ok, pool, <<0:256>>} end),
         ok = meck:new(macula, [non_strict]),
-        ok = meck:expect(macula, subscribe, fun(_P, _R, _T, _S) -> {ok, make_ref()} end),
+        ok = meck:expect(macula, subscribe,
+                         fun(_P, _R, _T, _S, _O) -> {ok, make_ref()} end),
         {noreply, St1} = hear_warden_reports:handle_info(subscribe, St),
         ?assertEqual(2, meck:num_calls(macula, subscribe, '_')),
         [{Lost, _} | _] = hear_warden_reports:refs(St1),
@@ -212,8 +213,28 @@ a_partial_subscription_is_not_hearing_test() ->
         ok = meck:expect(mcl_om, mesh_handles, fun() -> {ok, pool, <<0:256>>} end),
         ok = meck:new(macula, [non_strict]),
         ok = meck:expect(macula, subscribe,
-                         fun(_P, _R, ?SIGHTED, _S) -> {ok, make_ref()};
-                            (_P, _R, _T, _S) -> {error, timeout} end),
+                         fun(_P, _R, ?SIGHTED, _S, _O) -> {ok, make_ref()};
+                            (_P, _R, _T, _S, _O) -> {error, timeout} end),
         {noreply, St1} = hear_warden_reports:handle_info(subscribe, St),
         ?assertEqual(false, hear_warden_reports:is_subscribed(St1))
+    end).
+
+%% MACULA 18 REFUSES A SUBSCRIPTION THAT NAMES NO SOURCES (macula#147), and it
+%% dropped the four-argument subscribe/4 that named none. The declaration must
+%% be this sentinel's own rule: the configured wardens, by the publisher macula
+%% verified, not everyone in the realm. Asserted on what reaches macula, because
+%% a declaration that is simply absent would still compile and still be a
+%% subscription -- it just would not be served.
+the_subscription_declares_the_configured_wardens_test() ->
+    with_handler(fun(St) ->
+        ok = meck:new(mcl_om, [non_strict]),
+        ok = meck:expect(mcl_om, mesh_handles, fun() -> {ok, pool, <<0:256>>} end),
+        ok = meck:new(macula, [non_strict]),
+        ok = meck:expect(macula, subscribe,
+                         fun(_P, _R, _T, _S, _O) -> {ok, make_ref()} end),
+        {noreply, _St1} = hear_warden_reports:handle_info(subscribe, St),
+        [Opts | _] = [O || {_P, {_M, subscribe, [_Pool, _Realm, _Topic, _Pid, O]}, _R}
+                               <- meck:history(macula)],
+        ?assertEqual(#{sources => {nodes, [binary:decode_hex(hex(?A)),
+                                           binary:decode_hex(hex(?B))]}}, Opts)
     end).

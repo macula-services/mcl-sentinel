@@ -4,13 +4,26 @@
 
 - **On macula 18 through `mcl_om` 1.6** (macula-io/macula#147, mcl-om#41):
   `mcl_om ~> 1.4` -> `~> 1.6` and `macula ~> 16.0` -> `~> 18.0`. 18 keeps wire
-  1.0, so this build still speaks to every wire 1.0 box. mcl_om 1.6 refuses to
-  boot a handler-bearing capability that names no `auth` and a subscription that
-  names no `sources`; this service declares neither — `capabilities/0` is `[]`
-  and there is no `subscriptions/0`. It subscribes by hand in
-  `hear_warden_reports` through `macula:subscribe/4`, which 18 still exports
-  unchanged and which asks for no sources, so no reach changes and no code
-  moved.
+  1.0, so this build still speaks to every wire 1.0 box.
+- **The warden subscription names its sources.** macula 18 asks a subscription
+  who may deliver to it (macula#147) and dropped the four-argument
+  `macula:subscribe/4` that named nobody: `hear_warden_reports` calls
+  `subscribe/5` with `sources => {nodes, Wardens}`, the configured wardens,
+  converted from their 64-hex form to the raw node id the check compares.
+
+  This service does not go through `mcl_om`'s `subscriptions/0` — it subscribes
+  by hand — so mcl_om 1.6's boot validation never saw it, and neither did the
+  tests: they mocked `macula:subscribe` at the old arity. Dialyzer found it on
+  the first CI run, as a call to a function macula 18 does not export.
+
+  Nothing is widened. The declaration is the rule `warden_report:attribute/4`
+  already applied to every fact after delivery — a report is taken only from a
+  configured warden, by the publisher macula verified — so it now refuses an
+  unlisted publisher at the pool instead of after it. A test asserts the
+  declaration reaches macula, because a missing one still compiles and still
+  looks like a subscription; it just is not served.
+- `capabilities/0` is still `[]`: this service serves no procedure, so macula
+  18's other rule asks nothing of it.
 - **The revocation bound from macula 16 is part of this base** (macula#118,
   left Unreleased until now): an endorsement admits its holder for at most 24
   hours and a gated overlay context must pass `member_standing`. This service
