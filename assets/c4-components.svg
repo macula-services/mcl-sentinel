@@ -120,8 +120,9 @@
 <rect class="b-mac" x="420" y="882" width="360" height="120" rx="10"/>
 <text class="t-code" x="436" y="910">macula</text>
 <text class="t-type" x="436" y="928">[library, ~&gt; 18.0]</text>
-<text class="t-desc" x="436" y="952">subscribe/4, the topic names, the wire</text>
-<text class="t-desc" x="436" y="968">codec, and the signed DHT records</text>
+<text class="t-desc" x="436" y="952">subscribe/5 with its declared sources, the</text>
+<text class="t-desc" x="436" y="968">topic names, the wire codec, and the signed</text>
+<text class="t-desc" x="436" y="984">DHT records</text>
 <rect class="b-mac" x="800" y="882" width="360" height="120" rx="10"/>
 <text class="t-code" x="816" y="910">reckon_db, evoq, reckon_evoq</text>
 <text class="t-type" x="816" y="928">[libraries]</text>
@@ -154,7 +155,7 @@
 <text class="t-rel" x="560" y="784">lookup/1</text>
 <text class="t-desc" x="40" y="1190">The read model has no projection on purpose: evoq replays the whole log to every handler on each boot, so a projection would fold</text>
 <text class="t-desc" x="40" y="1208">history twice and report every old campaign again. The ingest folds the read model after boot, and publishes the facts.</text>
-<text class="t-desc" x="40" y="1226">The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/4</text>
+<text class="t-desc" x="40" y="1226">The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/5</text>
 <text class="t-desc" x="40" y="1244">and the facts module builds topics with macula_topic, both directly. locus is called only by sentinel_enrich.</text>
 <rect class="b-sys" x="24" y="1270" width="22" height="14" rx="3"/>
 <text class="t-leg" x="54" y="1282">In scope</text>

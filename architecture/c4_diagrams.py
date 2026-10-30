@@ -222,7 +222,7 @@ def components():
     d.box("b-mac", 40, 882, 360, 120, "mcl_om", "[library, ~> 1.6]",
           ["boot/1 wires mesh, identity, health;", "publishes through mcl_om_pubsub"], code=True)
     d.box("b-mac", 420, 882, 360, 120, "macula", "[library, ~> 18.0]",
-          ["subscribe/4, the topic names, the wire", "codec, and the signed DHT records"], code=True)
+          ["subscribe/5 with its declared sources, the", "topic names, the wire codec, and the signed", "DHT records"], code=True)
     d.box("b-mac", 800, 882, 360, 120, "reckon_db, evoq, reckon_evoq", "[libraries]",
           ["the store, the aggregate, command and", "event behaviours; locus reads the DB-IP files"],
           code=True)
@@ -242,7 +242,7 @@ def components():
     d.edge("M520 792H660"); d.text("t-rel", 560, 784, "lookup/1")
     d.text("t-desc", 40, 1190, "The read model has no projection on purpose: evoq replays the whole log to every handler on each boot, so a projection would fold")
     d.text("t-desc", 40, 1208, "history twice and report every old campaign again. The ingest folds the read model after boot, and publishes the facts.")
-    d.text("t-desc", 40, 1226, "The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/4")
+    d.text("t-desc", 40, 1226, "The three library boxes are drawn without arrows: boot and publish/2 go through mcl_om, while the subscriber calls macula:subscribe/5")
     d.text("t-desc", 40, 1244, "and the facts module builds topics with macula_topic, both directly. locus is called only by sentinel_enrich.")
     d.legend(1270)
     d.write()

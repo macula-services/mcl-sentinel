@@ -37,8 +37,12 @@ volume, no topic.
 (macula-io/macula-fleet#27), when the whole fleet moved together.
 
 0.4.0 moves it to macula 18 through `mcl_om` 1.6. 18 keeps wire 1.0, so this
-build still speaks to every wire 1.0 box; nothing it declares is asked anything
-new, since it advertises no capability and declares no subscription.
+build still speaks to every wire 1.0 box. What 18 does ask is a subscription's
+sources: it dropped `macula:subscribe/4` and refuses a subscription that names
+nobody, so the warden subscription now names its wardens — the configured ones,
+by the publisher macula verified — which is the rule the service already
+applied to every fact it read. It advertises no capability, so the caller rule
+asks nothing of it.
 
 ## What it does
 
