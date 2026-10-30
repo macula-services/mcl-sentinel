@@ -32,8 +32,8 @@ info_round_trip_test_() ->
           ?_assert(at_least(maps:get(macula_version, Reply), [18, 0]))]
      end}.
 
-%% A floor, not an exact release: the service runs on mcl_om 1.4 or later
-%% (~> 1.4 in rebar.config), which brings macula 16.0. Compared as
+%% A floor, not an exact release: the service runs on mcl_om 1.6 or later
+%% (~> 1.6 in rebar.config), which brings macula 18.0. Compared as
 %% versions, so a later major passes a floor: the old same-major rule failed the
 %% moment mcl_om 0.34 brought macula 13.
 at_least({text, Vsn}, [Major, Minor]) ->
