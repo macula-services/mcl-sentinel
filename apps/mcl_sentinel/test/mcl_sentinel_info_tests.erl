@@ -6,9 +6,12 @@
 %% `get_limits' added the way mcl_om:boot/2 adds both, and the org in config/sys.config.src,
 %% then sent through macula's own frame codec, the path a reply takes. What
 %% arrives must be text, never bytes, and name this service, its procedures and
-%% an mcl_om of at least 1.4 with a macula of at least 16.0: 16 keeps wire 1.0,
+%% an mcl_om of at least 1.6 with a macula of at least 18.0: 18 keeps wire 1.0,
 %% the line the flag day moved the fleet to (macula-io/macula-fleet#27), and
-%% adds the revocation bound (macula#118).
+%% adds the source rule a subscription must name (macula#147), which is why the
+%% warden subscription now says who may deliver to it. The floor is the point:
+%% asserted below what the constraints allow, this passes on a build the service
+%% cannot boot against.
 -module(mcl_sentinel_info_tests).
 
 -include_lib("eunit/include/eunit.hrl").
