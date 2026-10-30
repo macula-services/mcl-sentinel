@@ -1,16 +1,23 @@
 # Changelog
 
-## Unreleased
+## 0.4.0 - 2026-10-30
 
-- **macula is declared, at 16** (macula-codebase-checks#4, #14). The
-  service called macula modules and compiled against `macula_response`
-  without declaring the application: it arrived transitively through
-  `mcl_om`, so a rebuild took whatever major the newest mcl_om carried.
-  `macula` is now a direct dependency at `~> 16.0` and `mcl_om` is at
-  `~> 1.4`, the release whose own base is macula 16. 16.0 keeps wire 1.0,
-  so this service still speaks to every wire 1.0 box; what it adds is the
-  revocation bound (macula#118). This service gates no overlay and issues
-  no endorsement.
+- **On macula 18 through `mcl_om` 1.6** (macula-io/macula#147, mcl-om#41):
+  `mcl_om ~> 1.4` -> `~> 1.6` and `macula ~> 16.0` -> `~> 18.0`. 18 keeps wire
+  1.0, so this build still speaks to every wire 1.0 box. mcl_om 1.6 refuses to
+  boot a handler-bearing capability that names no `auth` and a subscription that
+  names no `sources`; this service declares neither — `capabilities/0` is `[]`
+  and there is no `subscriptions/0`. It subscribes by hand in
+  `hear_warden_reports` through `macula:subscribe/4`, which 18 still exports
+  unchanged and which asks for no sources, so no reach changes and no code
+  moved.
+- **The revocation bound from macula 16 is part of this base** (macula#118,
+  left Unreleased until now): an endorsement admits its holder for at most 24
+  hours and a gated overlay context must pass `member_standing`. This service
+  gates no overlay and issues no endorsement.
+- The info round-trip test asserted the sub-dependency floors at mcl_om 1.4 and
+  macula 16.0; it now asserts 1.6 and 18.0, which is what the constraints allow
+  and what a future drift should fail on.
 
 ## 0.3.0 - 2026-10-17
 

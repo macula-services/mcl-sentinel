@@ -219,9 +219,9 @@ def components():
     d.box("b-cmp", 660, 754, 500, 104, "sentinel_enrich", "[gen_server + locus]",
           ["Loads the DB-IP city and ASN files before", "the read model starts; lookup/1 is additive"],
           code=True)
-    d.box("b-mac", 40, 882, 360, 120, "mcl_om", "[library, ~> 1.4]",
+    d.box("b-mac", 40, 882, 360, 120, "mcl_om", "[library, ~> 1.6]",
           ["boot/1 wires mesh, identity, health;", "publishes through mcl_om_pubsub"], code=True)
-    d.box("b-mac", 420, 882, 360, 120, "macula", "[library, ~> 16.0]",
+    d.box("b-mac", 420, 882, 360, 120, "macula", "[library, ~> 18.0]",
           ["subscribe/4, the topic names, the wire", "codec, and the signed DHT records"], code=True)
     d.box("b-mac", 800, 882, 360, 120, "reckon_db, evoq, reckon_evoq", "[libraries]",
           ["the store, the aggregate, command and", "event behaviours; locus reads the DB-IP files"],

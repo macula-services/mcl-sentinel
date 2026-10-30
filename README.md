@@ -33,8 +33,12 @@ Released as 0.2.0 on macula 14.2 through `mcl_om` 0.38. It replaces
 the macula 10 sentinel service and inherits nothing from it: no identity, no
 volume, no topic.
 
-0.3.0 moves it to wire 1.0: macula 15.6 through `mcl_om` 1.0. It reaches a box
-on the flag day (macula-io/macula-fleet#27), when the whole fleet moves together.
+0.3.0 moved it to wire 1.0: macula 15.6 through `mcl_om` 1.0, on the flag day
+(macula-io/macula-fleet#27), when the whole fleet moved together.
+
+0.4.0 moves it to macula 18 through `mcl_om` 1.6. 18 keeps wire 1.0, so this
+build still speaks to every wire 1.0 box; nothing it declares is asked anything
+new, since it advertises no capability and declares no subscription.
 
 ## What it does
 

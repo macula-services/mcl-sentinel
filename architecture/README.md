@@ -50,8 +50,8 @@ country, city or ASN.
 | `threat_sighted_v1` | `evoq_event` | The immutable event, attributed to the warden that signed the report |
 | `sentinel_threats` | `gen_server`, ETS read model | Keyed by source address. Rebuilt from the log once at boot, then folded only by the live ingest; an address seen by its second warden is a campaign |
 | `sentinel_enrich` | `gen_server` plus `locus` | Loads the DB-IP city and ASN files synchronously before the read model starts, and answers `lookup/1`. Additive: absent files mean no geolocation |
-| `mcl_om` | library, `~> 1.4` | `boot/1`: mesh, identity, health, and the publish path through `mcl_om_pubsub` |
-| `macula` | library, `~> 16.0` | `subscribe/4`, the topic names, the wire codec and the signed DHT records |
+| `mcl_om` | library, `~> 1.6` | `boot/1`: mesh, identity, health, and the publish path through `mcl_om_pubsub` |
+| `macula` | library, `~> 18.0` | `subscribe/4`, the topic names, the wire codec and the signed DHT records |
 | `reckon_db, evoq, reckon_evoq` | libraries | The store, and the aggregate, command and event behaviours the record slice implements |
 | the host environment | environment, read at boot | `MCL_SENTINEL_WARDENS`, `MCL_SENTINEL_GEOIP` (`/geoip`, set in the Containerfile), `MCL_DATA_DIR`; the realm, its key and the station pins are read by `mcl_om` |
 

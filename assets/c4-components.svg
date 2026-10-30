@@ -114,12 +114,12 @@
 <text class="t-desc" x="676" y="840">the read model starts; lookup/1 is additive</text>
 <rect class="b-mac" x="40" y="882" width="360" height="120" rx="10"/>
 <text class="t-code" x="56" y="910">mcl_om</text>
-<text class="t-type" x="56" y="928">[library, ~&gt; 1.4]</text>
+<text class="t-type" x="56" y="928">[library, ~&gt; 1.6]</text>
 <text class="t-desc" x="56" y="952">boot/1 wires mesh, identity, health;</text>
 <text class="t-desc" x="56" y="968">publishes through mcl_om_pubsub</text>
 <rect class="b-mac" x="420" y="882" width="360" height="120" rx="10"/>
 <text class="t-code" x="436" y="910">macula</text>
-<text class="t-type" x="436" y="928">[library, ~&gt; 16.0]</text>
+<text class="t-type" x="436" y="928">[library, ~&gt; 18.0]</text>
 <text class="t-desc" x="436" y="952">subscribe/4, the topic names, the wire</text>
 <text class="t-desc" x="436" y="968">codec, and the signed DHT records</text>
 <rect class="b-mac" x="800" y="882" width="360" height="120" rx="10"/>

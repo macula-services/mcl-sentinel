@@ -36,7 +36,7 @@
 
 info() ->
     #{name => <<"mcl-sentinel">>,
-      version => <<"0.3.0">>,
+      version => <<"0.4.0">>,
       description => <<"Correlates warden sightings into cross-border campaigns and publishes them, enriched, to the threat commons">>}.
 
 %% The realm name the topics carry must be the realm the pool is in, or the

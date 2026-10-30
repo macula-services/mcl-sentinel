@@ -28,8 +28,8 @@ info_round_trip_test_() ->
           ?_assertEqual([{text, C} || C <- [<<(?ORG)/binary, "/info">> | Own]],
                         maps:get(capabilities, Reply)),
           ?_assertEqual([], [V || V <- lists:flatten(maps:values(Reply)), is_binary(V)]),
-          ?_assert(at_least(maps:get(mcl_om_version, Reply), [1, 4])),
-          ?_assert(at_least(maps:get(macula_version, Reply), [16, 0]))]
+          ?_assert(at_least(maps:get(mcl_om_version, Reply), [1, 6])),
+          ?_assert(at_least(maps:get(macula_version, Reply), [18, 0]))]
      end}.
 
 %% A floor, not an exact release: the service runs on mcl_om 1.4 or later
